@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QSettingsDialog</class>
+ <widget class="QDialog" name="QSettingsDialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>695</width>
+    <height>455</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Settings</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="generalSettings">
+      <attribute name="title">
+       <string>General Settings</string>
+      </attribute>
+      <layout class="QFormLayout" name="formLayout">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Language: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="languageBox"/>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>Begin of next harvest year: </string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
+        <widget class="QComboBox" name="cbHarvestYearEnd">
+         <item>
+          <property name="text">
+           <string>January</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>February</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>March</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>April</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>May</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>June</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>July</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>August</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>September</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>October</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>November</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>December</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="farm">
+      <attribute name="title">
+       <string>Farms</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QGroupBox" name="farmManagement">
+         <property name="title">
+          <string>Farm Management</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <item>
+             <widget class="QPushButton" name="buttonOpenFarm">
+              <property name="text">
+               <string>Open Farm</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="buttonCloseFarm">
+              <property name="text">
+               <string>Close Active Farm</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="buttonNewFarm">
+              <property name="text">
+               <string>New Farm</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="Line" name="line">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QListWidget" name="listWidgetFarms"/>
+          </item>
+          <item>
+           <layout class="QHBoxLayout" name="horizontalLayout_3">
+            <item>
+             <widget class="QPushButton" name="buttonLoadFarm">
+              <property name="text">
+               <string>Load Farm</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="buttonDelFarm">
+              <property name="text">
+               <string>Delete Farm</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="editCurFarm">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="title">
+          <string>Edit Current Farm</string>
+         </property>
+         <layout class="QVBoxLayout" name="verticalLayout_5">
+          <item>
+           <layout class="QFormLayout" name="formLayout_2">
+            <item row="0" column="0">
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>Name: </string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLineEdit" name="editName"/>
+            </item>
+           </layout>
+          </item>
+          <item>
+           <widget class="QLabel" name="statusLabel">
+            <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="cropSettings">
+      <attribute name="title">
+       <string>Crops</string>
+      </attribute>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QListWidget" name="listWidget"/>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <widget class="QPushButton" name="buttonDel">
+           <property name="text">
+            <string>Delete Crop</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonEdit">
+           <property name="text">
+            <string>Edit Crop</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="buttonNew">
+           <property name="text">
+            <string>New Crop</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+   <item>
+    <widget class="QDialogButtonBox" name="buttonBox">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="standardButtons">
+      <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>accepted()</signal>
+   <receiver>QSettingsDialog</receiver>
+   <slot>accept()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>248</x>
+     <y>254</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>157</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonBox</sender>
+   <signal>rejected()</signal>
+   <receiver>QSettingsDialog</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>316</x>
+     <y>260</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>286</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonDel</sender>
+   <signal>clicked()</signal>
+   <receiver>QSettingsDialog</receiver>
+   <slot>delCrop()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>78</x>
+     <y>233</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonEdit</sender>
+   <signal>clicked()</signal>
+   <receiver>QSettingsDialog</receiver>
+   <slot>editCrop()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>233</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonNew</sender>
+   <signal>clicked()</signal>
+   <receiver>QSettingsDialog</receiver>
+   <slot>newCrop()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>321</x>
+     <y>233</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonCloseFarm</sender>
+   <signal>clicked()</signal>
+   <receiver>QSettingsDialog</receiver>
+   <slot>closeFarm()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>347</x>
+     <y>94</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>347</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonDelFarm</sender>
+   <signal>clicked()</signal>
+   <receiver>QSettingsDialog</receiver>
+   <slot>delFarm()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>506</x>
+     <y>273</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>347</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonLoadFarm</sender>
+   <signal>clicked()</signal>
+   <receiver>QSettingsDialog</receiver>
+   <slot>loadFarm()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>188</x>
+     <y>273</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>347</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonNewFarm</sender>
+   <signal>clicked()</signal>
+   <receiver>QSettingsDialog</receiver>
+   <slot>newFarm()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>558</x>
+     <y>94</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>347</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonOpenFarm</sender>
+   <signal>clicked()</signal>
+   <receiver>QSettingsDialog</receiver>
+   <slot>openFarm()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>135</x>
+     <y>94</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>347</x>
+     <y>227</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>delCrop()</slot>
+  <slot>editCrop()</slot>
+  <slot>newCrop()</slot>
+  <slot>delFarm()</slot>
+  <slot>newFarm()</slot>
+  <slot>openFarm()</slot>
+  <slot>loadFarm()</slot>
+  <slot>closeFarm()</slot>
+ </slots>
+</ui>

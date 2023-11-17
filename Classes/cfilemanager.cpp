@@ -15,6 +15,7 @@
 #           key: fields         data: <AllAtributesOfAllFields>
 #           key: name           data: <FarmName>
 #           key: workDir        data: <PathOfWorkDir>
+#           key: workUnits      data: <AllAtributesOfAllWorkUnits>
 */
 
 #include "Classes/cdatamanager.h"
@@ -164,6 +165,7 @@ void CFileManager::writeFarmData(){
 
     farmFile.resize(0);
 
+    // Fields
     QString fieldData;
     std::vector<CField> fields = CDataManager::getCurrentFarm()->getAllFields();
     for(int i = 0; i < (int)fields.size(); i++){
@@ -179,10 +181,30 @@ void CFileManager::writeFarmData(){
         }
     }
 
+    // WorkUnits
+    QString workUnitData;
+    std::vector<CWorkUnit> workUnits = CDataManager::getCurrentFarm()->getAllWorkUnits();
+    for(int i = 0; i < (int)workUnits.size(); i++){
+        if(i != 0){
+            workUnitData += ";";
+        }
+        std::vector<QString> attributes = workUnits.at(i).getAllAttributes();
+        for(int j = 0; j < (int)attributes.size(); j++){
+            if(j != 0){
+                workUnitData += " ";
+            }
+            workUnitData += attributes.at(j);
+        }
+    }
+
+    // Farm Name
     QString farmName = CDataManager::getCurrentFarmName();
 
     //Data to save
     QMap<QString, QString> data;
+    if(!workUnitData.isEmpty()){
+        data.insert(QString::fromStdString("workUnits"), workUnitData);
+    }
     if(!fieldData.isEmpty()){
         data.insert(QString::fromStdString("fields"), fieldData);
     }
@@ -294,7 +316,7 @@ std::vector<QStringList> CFileManager::getCropData(){
     return cropData;
 }
 
-std::vector<QStringList> CFileManager::getFarmData(QDir workDir, QString farmName){
+QMap<QString, QStringList> CFileManager::getFarmData(QDir workDir, QString farmName){
         QMap<QString, QString> data;
         QFile farmFile(workDir.filePath(farmName + ".lvp"));
         //Get data
@@ -304,15 +326,18 @@ std::vector<QStringList> CFileManager::getFarmData(QDir workDir, QString farmNam
             in >> data;
             farmFile.close();
         }
+        QMap<QString, QStringList> farmData;
 
-        std::vector<QStringList> farmData;
         //Put data to right place
         if(data.contains("fields")){
             QString valString = data.value("fields");
             QStringList fields = valString.split(QLatin1Char(';'));
-            for(int i = 0; i < fields.length(); i++){
-                farmData.push_back(fields.at(i).split(QLatin1Char(' ')));
-            }
+            farmData.insert(QString::fromStdString("fieldData"), fields);
+        }
+        if(data.contains("workUnits")){
+            QString valString = data.value("workUnits");
+            QStringList workUnits = valString.split(QLatin1Char(';'));
+            farmData.insert(QString::fromStdString("workUnitData"), workUnits);
         }
         return farmData;
     }

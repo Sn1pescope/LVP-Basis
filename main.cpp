@@ -14,7 +14,11 @@ int main(int argc, char *argv[])
 
     //Start main program
 
-    //TODO: Publish beta (lrelease already done)
+    //TODO:
+    //QTree view with work units -> backend is programmed, overwork gui
+    //-> Split, merge
+
+    //Publish beta
     //publish code
 
     //TODO: Go on with V1 Grundlage

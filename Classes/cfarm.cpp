@@ -18,11 +18,28 @@ void CFarm::ini(QString farmName_par){
     farmName = farmName_par;
     workDir = QDir(QString::fromStdString("Data/") + farmName);
 
-    std::vector<QStringList> farmData = CFileManager::getFarmData(workDir, farmName);
+    QMap<QString, QStringList> farmData = CFileManager::getFarmData(workDir, farmName);
+
     if(!farmData.empty()){
-        for(int i = 0; i < (int)farmData.size(); i++){
-            QStringList l = farmData.at(i);
-            fields.push_back(CField(l.at(0), l.at(1).toFloat(), l.at(2), l.at(3), l.at(4), l.at(5), l.at(6), l.at(7), l.at(8), l.at(9), l.at(10), l.at(11), l.at(12)));
+        //Fields
+        if(farmData.contains("fieldData")){
+            QStringList fieldData = farmData.value("fieldData");
+            foreach(QString field, fieldData){
+                QStringList l = field.split(QLatin1Char(' '));
+                fields.push_back(CField(l.at(0), l.at(1).toFloat(), l.at(2), l.at(3), l.at(4), l.at(5), l.at(6), l.at(7), l.at(8), l.at(9), l.at(10), l.at(11), l.at(12)));
+            }
+        }
+        //WorkUnits
+        if(farmData.contains("workUnitData")){
+            QStringList workUnitData = farmData.value("workUnitData");
+            foreach(QString workUnit, workUnitData){
+                QStringList l = workUnit.split(QLatin1Char(' '));
+                QString name = l.at(0);
+                workUnits.push_back(CWorkUnit(name));
+                for(int i = 1; i < l.length(); i++){
+                    addFieldToWorkUnit(l.at(i), l.at(0));
+                }
+            }
         }
     }
 }
@@ -40,6 +57,38 @@ void CFarm::deleteField(QString at){
     if(it != fields.end()){
         deleteField(it - fields.begin());
     }
+}
+
+void CFarm::addWorkUnit(CWorkUnit wu){
+    workUnits.push_back(wu);
+}
+void CFarm::deleteWorkUnit(int at){
+    workUnits.erase(workUnits.begin() + at);
+}
+void CFarm::deleteWorkUnit(QString at){
+    auto it = std::find(workUnits.begin(), workUnits.end(), CWorkUnit(at));
+    if(it != workUnits.end()){
+        deleteField(it - workUnits.begin());
+    }
+}
+void CFarm::addFieldToWorkUnit(QString field, QString wu){
+    auto it = std::find(workUnits.begin(), workUnits.end(), CWorkUnit(wu));
+    if(it != workUnits.end()){
+        workUnits.at(it - workUnits.begin()).addField(field);
+    }
+}
+void CFarm::removeFieldFromWorkUnit(QString field, QString wu){
+    auto it = std::find(workUnits.begin(), workUnits.end(), CWorkUnit(wu));
+    if(it != workUnits.end()){
+        workUnits.at(it - workUnits.begin()).removeField(field);
+    }
+}
+bool CFarm::fieldIsInWorkUnit(QString field, QString wu){
+    auto it = std::find(workUnits.begin(), workUnits.end(), CWorkUnit(wu));
+    if(it != workUnits.end()){
+        return workUnits.at(it - workUnits.begin()).hasField(field);
+    }
+    return false;
 }
 
 bool CFarm::operator==(const CFarm &rhs){
@@ -68,6 +117,10 @@ std::vector<QString> CFarm::getAllFieldNames(){
 
 std::vector<CField> CFarm::getAllFields(){
     return fields;
+}
+
+std::vector<CWorkUnit> CFarm::getAllWorkUnits(){
+    return workUnits;
 }
 
 CField* CFarm::getField(int at){

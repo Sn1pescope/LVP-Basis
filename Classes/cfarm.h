@@ -1,6 +1,7 @@
 #ifndef CFARM_H
 #define CFARM_H
 
+#include "Classes/cworkunit.h"
 #pragma once
 
 #include <QDir>
@@ -18,6 +19,13 @@ public:
     void deleteField(int);
     void deleteField(QString);
 
+    void addWorkUnit(CWorkUnit);
+    void deleteWorkUnit(int);
+    void deleteWorkUnit(QString);
+    void addFieldToWorkUnit(QString, QString);
+    void removeFieldFromWorkUnit(QString, QString);
+    bool fieldIsInWorkUnit(QString, QString);
+
     bool operator==(const CFarm &rhs);
 
     // ------- Getter ---------
@@ -25,6 +33,7 @@ public:
     QDir getWorkDir();
     std::vector<QString> getAllFieldNames();
     std::vector<CField> getAllFields();
+    std::vector<CWorkUnit> getAllWorkUnits();
     CField* getField(int);
     CField* getField(QString);
 
@@ -40,6 +49,7 @@ private:
     QDir workDir;
 
     std::vector<CField> fields;
+    std::vector<CWorkUnit> workUnits;
 };
 
 #endif // CFARM_H

@@ -25,6 +25,7 @@ SOURCES += \
         Classes/cfilemanager.cpp \
         Classes/clanguagemanager.cpp \
         Classes/csecuritymanager.cpp \
+        Classes/cworkunit.cpp \
         main.cpp
 
 # Default rules for deployment.
@@ -47,7 +48,8 @@ HEADERS += \
     Classes/cfield.h \
     Classes/cfilemanager.h \
     Classes/clanguagemanager.h \
-    Classes/csecuritymanager.h
+    Classes/csecuritymanager.h \
+    Classes/cworkunit.h
 
 FORMS += \
     Classes/GUI/Dialogs/qcreatefarm.ui \

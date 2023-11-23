@@ -1,6 +1,10 @@
 #include "cfield.h"
 #include "Classes/cdatamanager.h"
 
+CField::CField(){
+
+}
+
 CField::CField(QString name_par){
     name = name_par;
 }

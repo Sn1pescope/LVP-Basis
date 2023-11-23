@@ -1,13 +1,14 @@
 #ifndef QCREATEFIELD_H
 #define QCREATEFIELD_H
 
+#pragma once
+
 #include <QDialog>
 #include <QGroupBox>
 #include <QDate>
 #include <QComboBox>
 #include <QListWidget>
 #include <QCheckBox>
-#include <Classes/cdatamanager.h>
 #include <Classes/GUI/Dialogs/qwarningdialog.h>
 #include <Classes/ccommunicator.h>
 #include <Classes/cfield.h>

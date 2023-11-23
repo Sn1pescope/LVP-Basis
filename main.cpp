@@ -1,3 +1,10 @@
+/*
+ * @mysterious
+ * Changelog LVP-Basis Module:
+ *
+ * --- V 0.1    "Beta"  :   -added Farm, Field and Crop Systems
+ *                          -added Save system
+*/
 
 #include <QApplication>
 #include <Classes/GUI/qmain.h>
@@ -14,8 +21,14 @@ int main(int argc, char *argv[])
 
     //Start main program
 
-    //TODO: Publish beta (lrelease already done)
+    //TODO:
+
+    //Search: 'TODO'
+    //Check window titles
+    //Translate (lupdate, translate, lrelease)
+    //Write changelog
     //publish code
+    //Release beta
 
     //TODO: Go on with V1 Grundlage
 

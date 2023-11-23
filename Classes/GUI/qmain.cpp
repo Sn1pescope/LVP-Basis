@@ -1,4 +1,5 @@
 #include "qmain.h"
+#include "Classes/GUI/Dialogs/qworkunitdialog.h"
 #include "ui_qmain.h"
 
 QMain::QMain(QWidget *parent) : QMainWindow(parent), ui(new Ui::QMain)
@@ -6,8 +7,8 @@ QMain::QMain(QWidget *parent) : QMainWindow(parent), ui(new Ui::QMain)
     ui->setupUi(this);
     connect(&CDataManager::instance(), &CDataManager::currentFarmChanged, this, &QMain::updateMainScreenActive);
     connect(&CDataManager::instance(), &CDataManager::currentFarmChanged, this, &QMain::createFieldList);
-    connect(ui->listFields, &QListWidget::itemDoubleClicked, this, &QMain::editField);
-    connect(ui->listFields, &QListWidget::currentTextChanged, this, &QMain::updateCurrentField);
+    connect(ui->listFields, &QTreeWidget::itemDoubleClicked, this, &QMain::editField);
+    connect(ui->listFields, &QTreeWidget::currentItemChanged, this, &QMain::updateCurrentField);
     lbls[0]=ui->lbl_HarvestYear1;lbls[1]=ui->lbl_HarvestYear2;lbls[2]=ui->lbl_HarvestYear3;lbls[3]=ui->lbl_HarvestYear4;lbls[4]=ui->lbl_HarvestYear5;
     lbls[5]=ui->lbl_Crop1;lbls[6]=ui->lbl_Crop2;lbls[7]=ui->lbl_Crop3;lbls[8]=ui->lbl_Crop4;lbls[9]=ui->lbl_Crop5;
     lbls[10]=ui->lbl_InterCrop1;lbls[11]=ui->lbl_InterCrop2;lbls[12]=ui->lbl_InterCrop3;lbls[13]=ui->lbl_InterCrop4;lbls[14]=ui->lbl_InterCrop5;
@@ -45,30 +46,43 @@ void QMain::createFieldList(){
     CFarm* curFarm = CDataManager::getCurrentFarm();
     if(curFarm != 0x0){
         std::vector<QString> fieldNames = curFarm->getAllFieldNames();
-        foreach (QString name, fieldNames) {
-            new QListWidgetItem(name, ui->listFields);
+        std::vector<CWorkUnit> workUnits = curFarm->getAllWorkUnits();
+        //Add each workUnit
+        foreach (CWorkUnit wu, workUnits) {
+            ui->listFields->addTopLevelItem(new QTreeWidgetItem(QStringList(wu.getName())));
+        }
+        //Add each field
+        foreach (QString field, fieldNames){
+            QString wu = curFarm->getWorkUnitOfField(field);
+            if(wu != nullptr){
+                //Add to wu
+                ui->listFields->findItems(wu, Qt::MatchExactly).at(0)->addChild(new QTreeWidgetItem(QStringList(field)));
+            }else{
+                //Add as topLevel
+                ui->listFields->addTopLevelItem(new QTreeWidgetItem(QStringList(field)));
+            }
         }
     }
 }
 
 void QMain::deleteField(){
     //Delete selected field
-    if(ui->listFields->currentItem() != nullptr){
-        QString name = ui->listFields->currentItem()->text();
-        QWarningDialog warn(this, tr("Delete Farm"), tr("Do you really want to delete farm '%1'?").arg(name), true, true);
+    if(ui->listFields->currentItem() != nullptr && ui->listFields->currentItem()->childCount() == 0){
+        QString name = ui->listFields->currentItem()->text(0);
+        QWarningDialog warn(this, tr("Delete Field"), tr("Do you really want to delete field '%1'?").arg(name), true, true);
         if(warn.exec()){
             //Delete field
             CCommunicator::deleteFieldOfCurrentFarm(name);
             //Update listWidget
-            delete ui->listFields->takeItem(ui->listFields->row(ui->listFields->currentItem()));
+            createFieldList();
         }
     }
 }
 
 void QMain::editField(){
     //Edit selected field through dialog
-    if(ui->listFields->currentItem() != nullptr){
-        QString name = ui->listFields->currentItem()->text();
+    if(ui->listFields->currentItem() != nullptr && ui->listFields->currentItem()->childCount() == 0){
+        QString name = ui->listFields->currentItem()->text(0);
         QCreateField edit(this, name);
         edit.exec();
     }
@@ -81,6 +95,37 @@ void QMain::newField(){
     createFieldList();
 }
 
+void QMain::splitField(){
+    //Check if its not a wu
+    if(ui->listFields->currentItem() != nullptr && ui->listFields->currentItem()->childCount() == 0){
+        QSplitMergeField(this, *CDataManager::getCurrentFarm()->getField(ui->listFields->currentItem()->text(0))).exec();
+        //Update GUI
+        save();
+        createFieldList();
+    }
+}
+
+void QMain::mergeFields(){
+    //Check if two fields are selected which are both topLevel or both of the same wu
+    if(ui->listFields->selectedItems().size() == 2 && ui->listFields->selectedItems().at(0)->parent() == ui->listFields->selectedItems().at(1)->parent()){
+        //Make one field out of both
+        QSplitMergeField(this, *CDataManager::getCurrentFarm()->getField(ui->listFields->selectedItems().at(0)->text(0)),
+                         *CDataManager::getCurrentFarm()->getField(ui->listFields->selectedItems().at(1)->text(0))).exec();
+        //Update GUI
+        save();
+        createFieldList();
+    }
+}
+
+void QMain::setWorkUnit(){
+    //Check if its not a work unit
+    if(ui->listFields->currentItem() != nullptr && ui->listFields->currentItem()->childCount() == 0){
+        QWorkUnitDialog(this, ui->listFields->currentItem()->text(0)).exec();
+        save();
+        createFieldList();
+    }
+}
+
 QMain::~QMain()
 {
     delete ui;
@@ -90,7 +135,7 @@ QMain::~QMain()
 //--------------------------------- Field Data ----------------------------------------------
 
 void QMain::updateCurrentField(){
-    if(ui->listFields->currentItem() == nullptr){
+    if(ui->listFields->currentItem() == nullptr || ui->listFields->currentItem()->childCount() > 0){
         for (int i = 5; i < 15; i++) {
             if(i < 10){
                 //Crops
@@ -104,7 +149,7 @@ void QMain::updateCurrentField(){
         lbls[16]->setText("");
         lbls[17]->setText("");
     }else{
-        CField* field = CDataManager::getCurrentFarm()->getField(ui->listFields->currentItem()->text());
+        CField* field = CDataManager::getCurrentFarm()->getField(ui->listFields->currentItem()->text(0));
         for (int i = 5; i < 15; i++) {
             if(i < 10){
                 //Crops

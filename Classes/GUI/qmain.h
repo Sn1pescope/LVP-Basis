@@ -14,6 +14,7 @@
 #include <Classes/GUI/Dialogs/qwelcome.h>
 #include <Classes/GUI/Dialogs/qsettingsdialog.h>
 #include <Classes/GUI/Dialogs/qcreatefield.h>
+#include <Classes/GUI/Dialogs/qsplitmergefield.h>
 
 namespace Ui {
 class QMain;
@@ -54,6 +55,10 @@ private slots:
     void newField();
     void editField();
     void deleteField();
+
+    void splitField();
+    void mergeFields();
+    void setWorkUnit();
 
     void openSettings();
     void save();

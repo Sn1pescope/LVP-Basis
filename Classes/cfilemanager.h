@@ -35,7 +35,7 @@ public:
     static QString getLastFarmName();
     static std::vector<QString> getFarmNames();
     static std::vector<QStringList> getCropData();
-    static std::vector<QStringList> getFarmData(QDir, QString);
+    static QMap<QString, QStringList> getFarmData(QDir, QString);
     static QString getDefaultLocale();
     static int getHarvestYearEnd();
 

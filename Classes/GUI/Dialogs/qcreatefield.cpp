@@ -1,4 +1,5 @@
 #include "qcreatefield.h"
+#include "qtreewidget.h"
 #include "ui_qcreatefield.h"
 
 QCreateField::QCreateField(QWidget *parent, bool create) :
@@ -105,7 +106,7 @@ void QCreateField::ini(){
         for(QString name : names){
             cb->addItem(name);
         }
-    }
+    }  
 }
 
 //Read input at done and check if field with name already exists -> if yes: warning and no adding
@@ -157,7 +158,7 @@ void QCreateField::done(int res){
                 toUpdate->setAllParameters(name, size.toFloat(), regNumber, sC.at(0), sC.at(1), sC.at(2),
                                            sC.at(3), sC.at(4), sC.at(5), sC.at(6), sC.at(7), sC.at(8), sC.at(9));
                 //Update listView
-                this->parent()->findChild<QListWidget*>("listFields")->currentItem()->setText(name);
+                this->parent()->findChild<QTreeWidget*>("listFields")->currentItem()->setText(0, name);
                 CCommunicator::saveData();
             }
         }

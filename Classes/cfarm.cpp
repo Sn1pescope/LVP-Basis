@@ -49,6 +49,12 @@ void CFarm::addField(CField toAdd){
 }
 
 void CFarm::deleteField(int at){
+    QString wu = getWorkUnitOfField(fields.at(at).getName());
+    if(wu != nullptr){
+        //Remove field from wu
+        removeFieldFromWorkUnit(fields.at(at).getName(), wu);
+    }
+
     fields.erase(fields.begin() + at);
 }
 
@@ -68,7 +74,7 @@ void CFarm::deleteWorkUnit(int at){
 void CFarm::deleteWorkUnit(QString at){
     auto it = std::find(workUnits.begin(), workUnits.end(), CWorkUnit(at));
     if(it != workUnits.end()){
-        deleteField(it - workUnits.begin());
+        deleteWorkUnit(it - workUnits.begin());
     }
 }
 void CFarm::addFieldToWorkUnit(QString field, QString wu){
@@ -80,15 +86,20 @@ void CFarm::addFieldToWorkUnit(QString field, QString wu){
 void CFarm::removeFieldFromWorkUnit(QString field, QString wu){
     auto it = std::find(workUnits.begin(), workUnits.end(), CWorkUnit(wu));
     if(it != workUnits.end()){
-        workUnits.at(it - workUnits.begin()).removeField(field);
+        CWorkUnit* w = &workUnits.at(it - workUnits.begin());
+        w->removeField(field);
+        if(w->isEmpty()){
+            deleteWorkUnit(it - workUnits.begin());
+        }
     }
 }
-bool CFarm::fieldIsInWorkUnit(QString field, QString wu){
-    auto it = std::find(workUnits.begin(), workUnits.end(), CWorkUnit(wu));
-    if(it != workUnits.end()){
-        return workUnits.at(it - workUnits.begin()).hasField(field);
+QString CFarm::getWorkUnitOfField(QString field){
+    for(int i = 0; i < (int)workUnits.size(); i++){
+        if(workUnits.at(i).hasField(field)){
+            return workUnits.at(i).getName();
+        }
     }
-    return false;
+    return 0;
 }
 
 bool CFarm::operator==(const CFarm &rhs){

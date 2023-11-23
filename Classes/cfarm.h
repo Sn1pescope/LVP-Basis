@@ -24,7 +24,7 @@ public:
     void deleteWorkUnit(QString);
     void addFieldToWorkUnit(QString, QString);
     void removeFieldFromWorkUnit(QString, QString);
-    bool fieldIsInWorkUnit(QString, QString);
+    QString getWorkUnitOfField(QString);
 
     bool operator==(const CFarm &rhs);
 

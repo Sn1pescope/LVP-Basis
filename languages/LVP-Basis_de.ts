@@ -44,64 +44,64 @@
         <translation>Ein Feld bearbeiten/erstellen</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="20"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="35"/>
         <source>General Data</source>
         <translation>Generelle Informationen</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="26"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="41"/>
         <source>Name: </source>
         <translation>Name: </translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="36"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="51"/>
         <source>Size (ha):</source>
         <translation>Größe (ha):</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="46"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="61"/>
         <source>Register Number: </source>
         <translation>Registrierte Nummer: </translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="92"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="87"/>
         <source>Crops</source>
         <translation>Kulturen</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="122"/>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="206"/>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="284"/>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="362"/>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="440"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="117"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="201"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="279"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="357"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="435"/>
         <source>Inter Crop</source>
         <translation>Zwischenfrucht</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="138"/>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="216"/>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="294"/>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="372"/>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="450"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="133"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="211"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="289"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="367"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="445"/>
         <source>Inter Crop: </source>
         <translation>Zwischenfrucht: </translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="154"/>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="232"/>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="310"/>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="388"/>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="466"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="149"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="227"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="305"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="383"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.ui" line="461"/>
         <source>Main Crop: </source>
         <translation>Hauptkultur: </translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.cpp" line="121"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.cpp" line="122"/>
         <source>All input fields need to be filled!</source>
         <translation>Es müssen alle Felder ausgefüllt werden!</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/Dialogs/qcreatefield.cpp" line="128"/>
+        <location filename="../Classes/GUI/Dialogs/qcreatefield.cpp" line="129"/>
         <source>Field %1 already exists!</source>
         <translation>Feld %1 existiert bereits!</translation>
     </message>
@@ -161,47 +161,63 @@
         <translation>&lt;b&gt;Feldverwaltung&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.ui" line="113"/>
+        <location filename="../Classes/GUI/qmain.ui" line="133"/>
         <source>New Field</source>
         <translation>Neues Feld erstellen</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.ui" line="120"/>
+        <location filename="../Classes/GUI/qmain.ui" line="140"/>
         <source>Edit Field</source>
         <translation>Ausgewähltes Feld bearbeiten</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.ui" line="127"/>
+        <location filename="../Classes/GUI/qmain.ui" line="147"/>
+        <location filename="../Classes/GUI/qmain.cpp" line="72"/>
         <source>Delete Field</source>
         <translation>Ausgewähltes Feld löschen</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.ui" line="159"/>
+        <location filename="../Classes/GUI/qmain.ui" line="158"/>
+        <source>Set Work Unit</source>
+        <translation>Feldeinheit auswählen</translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/qmain.ui" line="165"/>
+        <source>Split Field</source>
+        <translation>Feld teilen</translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/qmain.ui" line="172"/>
+        <source>Merge Field</source>
+        <translation>Felder zusammenführen</translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/qmain.ui" line="206"/>
         <source>&lt;b&gt;Field Data&lt;/b&gt;</source>
         <translation>&lt;b&gt;Felddaten&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.ui" line="169"/>
+        <location filename="../Classes/GUI/qmain.ui" line="216"/>
         <source>General Data</source>
         <translation>Generelle Informationen</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.ui" line="175"/>
+        <location filename="../Classes/GUI/qmain.ui" line="222"/>
         <source>Name: </source>
         <translation>Name: </translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.ui" line="189"/>
+        <location filename="../Classes/GUI/qmain.ui" line="236"/>
         <source>Size(ha): </source>
         <translation>Größe (ha): </translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.ui" line="196"/>
+        <location filename="../Classes/GUI/qmain.ui" line="243"/>
         <source>Registered Number: </source>
         <translation>Registrierte Nummer: </translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.ui" line="220"/>
+        <location filename="../Classes/GUI/qmain.ui" line="267"/>
         <source>Crops</source>
         <translation>Kulturen</translation>
     </message>
@@ -210,7 +226,7 @@
         <translation type="vanished">Initialisierung fehlgeschlagen! Beende...</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.cpp" line="36"/>
+        <location filename="../Classes/GUI/qmain.cpp" line="37"/>
         <source>Information</source>
         <translation>Information</translation>
     </message>
@@ -221,36 +237,57 @@ You can change the current farm with Settings-&gt;Farm</source>
 Sie können den Betrieb über &apos;Einstellungen&apos; -&gt; &apos;Betrieb&apos; ändern.</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.cpp" line="36"/>
+        <location filename="../Classes/GUI/qmain.cpp" line="37"/>
         <source>Current activated farm: %1
 You can change the current farm with &apos;Settings&apos; -&gt; &apos;Farm&apos;.</source>
         <translation>Aktuell aktiver Betrieb: %1
 Sie können den aktiven Betrieb über &apos;Einstellungen&apos; -&gt; &apos;Betrieb&apos; ändern.</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.cpp" line="58"/>
         <source>Delete Farm</source>
-        <translation>Betrieb löschen</translation>
+        <translation type="vanished">Betrieb löschen</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.cpp" line="58"/>
         <source>Do you really want to delete farm &apos;%1&apos;?</source>
-        <translation>Wollen Sie den Betrieb &apos;%1&apos; wirklich löschen?</translation>
+        <translation type="vanished">Wollen Sie den Betrieb &apos;%1&apos; wirklich löschen?</translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.cpp" line="112"/>
+        <location filename="../Classes/GUI/qmain.cpp" line="72"/>
+        <source>Do you really want to delete field &apos;%1&apos;?</source>
+        <translation>Wollen Sie das Feld &apos;%1&apos; wirklich löschen?</translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/qmain.cpp" line="157"/>
         <source>Crop: </source>
         <translation>Hauptkultur: </translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.cpp" line="117"/>
+        <location filename="../Classes/GUI/qmain.cpp" line="162"/>
         <source>Inter Crop: </source>
         <translation>Zwischenfrucht: </translation>
     </message>
     <message>
-        <location filename="../Classes/GUI/qmain.cpp" line="153"/>
+        <location filename="../Classes/GUI/qmain.cpp" line="198"/>
         <source>Do you really want to exit?</source>
         <translation>Wollen Sie das Programm wirklich beenden?</translation>
+    </message>
+</context>
+<context>
+    <name>QNewWorkUnit</name>
+    <message>
+        <location filename="../Classes/GUI/Dialogs/qnewworkunit.ui" line="14"/>
+        <source>Create a work unit</source>
+        <translation>Eine neue Feldeinheit erstellen</translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/Dialogs/qnewworkunit.ui" line="22"/>
+        <source>Name: </source>
+        <translation>Name: </translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/Dialogs/qnewworkunit.cpp" line="22"/>
+        <source>Work Unit %1 already exists, choose another name!</source>
+        <translation>Feldeinheit &apos;%1&apos; existiert bereits! Wählen Sie einen anderen Namen!</translation>
     </message>
 </context>
 <context>
@@ -472,6 +509,56 @@ Sie wird für alle Betriebe gelöscht werden!</translation>
     </message>
 </context>
 <context>
+    <name>QSplitMergeField</name>
+    <message>
+        <source>Split or merge field</source>
+        <translation type="obsolete">Feld teilen</translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/Dialogs/qsplitmergefield.ui" line="48"/>
+        <source>Name: </source>
+        <translation>Name: </translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/Dialogs/qsplitmergefield.ui" line="61"/>
+        <source>Size: </source>
+        <translation>Größe (ha): </translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/Dialogs/qsplitmergefield.ui" line="74"/>
+        <source>Reg. Number: </source>
+        <translation>Reg. Nummer: </translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/Dialogs/qsplitmergefield.cpp" line="20"/>
+        <source>Split field &apos;%1&apos;</source>
+        <translation>Feld &apos;%1&apos; teilen</translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/Dialogs/qsplitmergefield.cpp" line="44"/>
+        <source>Merge fields &apos;%1&apos; and &apos;%2&apos;</source>
+        <translation>Felder &apos;%1&apos; und &apos;%2&apos; vereinen</translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/Dialogs/qsplitmergefield.cpp" line="90"/>
+        <location filename="../Classes/GUI/Dialogs/qsplitmergefield.cpp" line="135"/>
+        <source>All fields need to be filled!</source>
+        <translation>Es müssen alle Felder ausgefüllt werden!</translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/Dialogs/qsplitmergefield.cpp" line="97"/>
+        <location filename="../Classes/GUI/Dialogs/qsplitmergefield.cpp" line="141"/>
+        <location filename="../Classes/GUI/Dialogs/qsplitmergefield.cpp" line="146"/>
+        <source>The field &apos;%1&apos; already exists! Choose another name!</source>
+        <translation>Feld &apos;%1&apos; existiert bereits! Wählen Sie einen anderen Namen!</translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/Dialogs/qsplitmergefield.cpp" line="150"/>
+        <source>You need to specify two different names for your fields!</source>
+        <translation>Sie müssen zwei unterschiedliche Namen angeben!</translation>
+    </message>
+</context>
+<context>
     <name>QWarningDialog</name>
     <message>
         <source>Dialog</source>
@@ -570,6 +657,33 @@ Bitte versuchen Sie es erneut!</translation>
     <message>
         <source>Created and loaded farm %n!</source>
         <translation type="vanished">Betrieb %n erstellt und geladen!</translation>
+    </message>
+</context>
+<context>
+    <name>QWorkUnitDialog</name>
+    <message>
+        <location filename="../Classes/GUI/Dialogs/qworkunitdialog.ui" line="14"/>
+        <source>Set work unit</source>
+        <translation>Feldeinheit auswählen</translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/Dialogs/qworkunitdialog.ui" line="36"/>
+        <source>Select Work Unit:</source>
+        <translation>Feldeinheit auswählen:</translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/Dialogs/qworkunitdialog.ui" line="48"/>
+        <source>Create new Work Unit</source>
+        <translation>Eine neue Feldeinheit erstellen</translation>
+    </message>
+    <message>
+        <source>Select Work Unit of field &apos;</source>
+        <translation type="obsolete">Feldeinheit</translation>
+    </message>
+    <message>
+        <location filename="../Classes/GUI/Dialogs/qworkunitdialog.cpp" line="11"/>
+        <source>Select Work Unit of field &apos;%1&apos;:</source>
+        <translation>Feldeinheit des Feldes &apos;%1&apos; auswählen:</translation>
     </message>
 </context>
 </TS>

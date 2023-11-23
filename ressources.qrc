@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>languages/LVP-Basis_de.qm</file>
         <file>languages/LVP-Basis_en.qm</file>
+        <file>icons/arrow-left-solid.svg</file>
+        <file>icons/arrow-right-solid.svg</file>
     </qresource>
 </RCC>

@@ -103,30 +103,77 @@
           </widget>
          </item>
          <item>
-          <widget class="QListWidget" name="listFields"/>
+          <widget class="QTreeWidget" name="listFields">
+           <property name="editTriggers">
+            <set>QAbstractItemView::NoEditTriggers</set>
+           </property>
+           <property name="selectionMode">
+            <enum>QAbstractItemView::ExtendedSelection</enum>
+           </property>
+           <attribute name="headerVisible">
+            <bool>false</bool>
+           </attribute>
+           <column>
+            <property name="text">
+             <string notr="true">1</string>
+            </property>
+           </column>
+          </widget>
          </item>
          <item>
-          <layout class="QVBoxLayout" name="layoutButtonsFieldManagement">
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <property name="topMargin">
+            <number>0</number>
+           </property>
            <item>
-            <widget class="QPushButton" name="buttonNewField">
-             <property name="text">
-              <string>New Field</string>
-             </property>
-            </widget>
+            <layout class="QVBoxLayout" name="verticalLayout_2">
+             <item>
+              <widget class="QPushButton" name="buttonNewField">
+               <property name="text">
+                <string>New Field</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonEditField">
+               <property name="text">
+                <string>Edit Field</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonDeleteField">
+               <property name="text">
+                <string>Delete Field</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
            <item>
-            <widget class="QPushButton" name="buttonEditField">
-             <property name="text">
-              <string>Edit Field</string>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="buttonDeleteField">
-             <property name="text">
-              <string>Delete Field</string>
-             </property>
-            </widget>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <item>
+              <widget class="QPushButton" name="buttonSetWU">
+               <property name="text">
+                <string>Set Work Unit</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonSplitField">
+               <property name="text">
+                <string>Split Field</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="buttonMergeField">
+               <property name="text">
+                <string>Merge Field</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
            </item>
           </layout>
          </item>
@@ -447,6 +494,54 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>buttonMergeField</sender>
+   <signal>clicked()</signal>
+   <receiver>QMain</receiver>
+   <slot>mergeFields()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>211</x>
+     <y>506</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>378</x>
+     <y>270</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonSplitField</sender>
+   <signal>clicked()</signal>
+   <receiver>QMain</receiver>
+   <slot>splitField()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>211</x>
+     <y>474</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>378</x>
+     <y>270</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>buttonSetWU</sender>
+   <signal>clicked()</signal>
+   <receiver>QMain</receiver>
+   <slot>setWorkUnit()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>211</x>
+     <y>442</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>378</x>
+     <y>270</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openSettings()</slot>
@@ -455,5 +550,8 @@
   <slot>newField()</slot>
   <slot>deleteField()</slot>
   <slot>editField()</slot>
+  <slot>setWorkUnit()</slot>
+  <slot>splitField()</slot>
+  <slot>mergeFields()</slot>
  </slots>
 </ui>

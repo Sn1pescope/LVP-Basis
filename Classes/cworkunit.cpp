@@ -25,6 +25,10 @@ bool CWorkUnit::hasField(QString name){
     return (it != fields.end());
 }
 
+bool CWorkUnit::isEmpty(){
+    return (fields.size() < 1);
+}
+
 std::vector<QString> CWorkUnit::getAllAttributes(){
     std::vector<QString> data;
     data.push_back(name);
@@ -32,4 +36,16 @@ std::vector<QString> CWorkUnit::getAllAttributes(){
         data.push_back(f);
     }
     return data;
+}
+
+QString CWorkUnit::getName(){
+    return name;
+}
+
+std::vector<QString> CWorkUnit::getAllFieldNames(){
+    return fields;
+}
+
+bool CWorkUnit::operator==(const CWorkUnit rhs){
+    return (rhs.name == this->name);
 }

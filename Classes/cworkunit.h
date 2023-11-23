@@ -16,8 +16,13 @@ public:
     void removeField(QString);
     void removeField(int);
     bool hasField(QString);
+    bool isEmpty();
 
     std::vector<QString> getAllAttributes();
+    QString getName();
+    std::vector<QString> getAllFieldNames();
+
+    bool operator==(const CWorkUnit rhs);
 
 private:
     QString name;

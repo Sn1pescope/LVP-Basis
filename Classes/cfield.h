@@ -9,6 +9,7 @@
 class CField
 {
 public:
+    CField();
     CField(QString name);
     CField(QString name, float size, QString regNum);
     CField(QString name_par, float size_par, QString regNumber_par, QString lastCrop1, QString lastCrop2, QString lastCrop3, QString lastCrop4, QString lastCrop5, QString lastInterCrop1, QString lastInterCrop2, QString lastInterCrop3, QString lastInterCrop4, QString lastInterCrop5);

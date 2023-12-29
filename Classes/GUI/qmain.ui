@@ -27,29 +27,9 @@
     <item>
      <layout class="QHBoxLayout" name="ControlBar">
       <item>
-       <widget class="QPushButton" name="buttonExit">
+       <widget class="QPushButton" name="btnPlantingPlanningTool">
         <property name="text">
-         <string>Exit</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="buttonSave">
-        <property name="text">
-         <string>Save</string>
+         <string>Crop Planning</string>
         </property>
        </widget>
       </item>
@@ -65,6 +45,20 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="buttonSave">
+        <property name="text">
+         <string>Save</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="buttonSettings">
@@ -415,22 +409,6 @@
    </hints>
   </connection>
   <connection>
-   <sender>buttonExit</sender>
-   <signal>clicked()</signal>
-   <receiver>QMain</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>49</x>
-     <y>22</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>369</x>
-     <y>216</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
    <sender>buttonSave</sender>
    <signal>clicked()</signal>
    <receiver>QMain</receiver>
@@ -542,6 +520,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btnPlantingPlanningTool</sender>
+   <signal>clicked()</signal>
+   <receiver>QMain</receiver>
+   <slot>cropPlanning()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>61</x>
+     <y>22</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>378</x>
+     <y>270</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openSettings()</slot>
@@ -553,5 +547,6 @@
   <slot>setWorkUnit()</slot>
   <slot>splitField()</slot>
   <slot>mergeFields()</slot>
+  <slot>cropPlanning()</slot>
  </slots>
 </ui>

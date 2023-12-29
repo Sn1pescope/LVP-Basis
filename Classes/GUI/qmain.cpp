@@ -1,6 +1,7 @@
 #include "qmain.h"
 #include "Classes/GUI/Dialogs/qworkunitdialog.h"
 #include "ui_qmain.h"
+#include <Classes/GUI/Tools/qcropplantingplanningtool.h>
 
 QMain::QMain(QWidget *parent) : QMainWindow(parent), ui(new Ui::QMain)
 {
@@ -36,6 +37,13 @@ void QMain::eventLoopStarted(){
     this->show();
     QWarningDialog(this, tr("Information"), tr("Current activated farm: %1\n"
                                                "You can change the current farm with 'Settings' -> 'Farm'.").arg(CDataManager::getCurrentFarmName()), true, false).exec();
+}
+
+//------------------------------------ Tools -------------------------------------------------
+
+void QMain::cropPlanning(){
+    //Start crop planning tool
+    QCropPlantingPlanningTool(this).exec();
 }
 
 

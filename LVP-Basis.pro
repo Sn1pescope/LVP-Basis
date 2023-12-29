@@ -19,6 +19,7 @@ SOURCES += \
         Classes/GUI/Dialogs/qwarningdialog.cpp \
         Classes/GUI/Dialogs/qwelcome.cpp \
         Classes/GUI/Dialogs/qworkunitdialog.cpp \
+        Classes/GUI/Tools/qcropplantingplanningtool.cpp \
         Classes/GUI/qmain.cpp \
         Classes/ccommunicator.cpp \
         Classes/ccrop.cpp \
@@ -46,6 +47,7 @@ HEADERS += \
     Classes/GUI/Dialogs/qwarningdialog.h \
     Classes/GUI/Dialogs/qwelcome.h \
     Classes/GUI/Dialogs/qworkunitdialog.h \
+    Classes/GUI/Tools/qcropplantingplanningtool.h \
     Classes/GUI/qmain.h \
     Classes/ccommunicator.h \
     Classes/ccrop.h \
@@ -67,6 +69,7 @@ FORMS += \
     Classes/GUI/Dialogs/qwarningdialog.ui \
     Classes/GUI/Dialogs/qwelcome.ui \
     Classes/GUI/Dialogs/qworkunitdialog.ui \
+    Classes/GUI/Tools/qcropplantingplanningtool.ui \
     Classes/GUI/qmain.ui
 TRANSLATIONS += \
     languages/LVP-Basis_de.ts \

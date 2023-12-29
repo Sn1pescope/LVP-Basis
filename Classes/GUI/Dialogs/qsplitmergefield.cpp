@@ -23,8 +23,8 @@ QSplitMergeField::QSplitMergeField(QWidget *parent, CField f) : QDialog(parent),
     ui->widgetMiddle->setEnabled(false);
     ui->widgetRight->setEnabled(true);
     //set icons
-    ui->labelRight->setPixmap(QIcon(":/icons/arrow-right-solid.svg").pixmap(32, 32));
-    ui->labelLeft->setPixmap(QIcon(":/icons/arrow-left-solid.svg").pixmap(32, 32));
+    ui->labelRight->setPixmap(QIcon(":/icons/arrow-right-solid.png").pixmap(32, 32));
+    ui->labelLeft->setPixmap(QIcon(":/icons/arrow-left-solid.png").pixmap(32, 32));
 
     ui->nameMiddle->setText(f1.getName());
     ui->sizeMiddle->setValue(f1.getSize());
@@ -48,8 +48,8 @@ QSplitMergeField::QSplitMergeField(QWidget *parent, CField f1_par, CField f2_par
     ui->widgetMiddle->setEnabled(true);
     ui->widgetRight->setEnabled(false);
     //set icons
-    ui->labelRight->setPixmap(QIcon(":/icons/arrow-left-solid.svg").pixmap(32, 32));
-    ui->labelLeft->setPixmap(QIcon(":/icons/arrow-right-solid.svg").pixmap(32, 32));
+    ui->labelRight->setPixmap(QIcon(":/icons/arrow-left-solid.png").pixmap(32, 32));
+    ui->labelLeft->setPixmap(QIcon(":/icons/arrow-right-solid.png").pixmap(32, 32));
 
     QString regNum = "";
     if(f1.getRegNumber() == f2.getRegNumber()){

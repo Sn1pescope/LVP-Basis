@@ -2,6 +2,7 @@
 #define QCROPPLANTINGPLANNINGTOOL_H
 
 #include <QDialog>
+#include <QtCharts>
 
 namespace Ui {
 class QCropPlantingPlanningTool;
@@ -14,6 +15,9 @@ class QCropPlantingPlanningTool : public QDialog
 public:
     explicit QCropPlantingPlanningTool(QWidget *parent = nullptr);
     ~QCropPlantingPlanningTool();
+
+private:
+    void done(int);
 
 private:
     Ui::QCropPlantingPlanningTool *ui;

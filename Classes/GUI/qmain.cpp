@@ -30,6 +30,7 @@ void QMain::eventLoopStarted(){
     for(int i = 0; i < 5; i++){
         lbls[i]->setText(CCommunicator::generateHarvestYearString(i));
     }
+    ui->lbl_NextHarvestYear->setText(tr("Next Harvest Year:"));
 
     //Show main window
     updateMainScreenActive();
@@ -156,6 +157,8 @@ void QMain::updateCurrentField(){
         lbls[15]->setText("");
         lbls[16]->setText("");
         lbls[17]->setText("");
+        ui->lbl_PlannedCrop->setText("");
+        ui->lbl_PlannedInterCrop->setText("");
     }else{
         CField* field = CDataManager::getCurrentFarm()->getField(ui->listFields->currentItem()->text(0));
         for (int i = 5; i < 15; i++) {
@@ -174,6 +177,12 @@ void QMain::updateCurrentField(){
         lbls[15]->setText(field->getName());
         lbls[16]->setText(QString::number(field->getSize()));
         lbls[17]->setText(field->getRegNumber());
+        if(field->getNextCrop() != nullptr){
+            ui->lbl_PlannedCrop->setText(tr("Crop: ") + field->getNextCrop()->getName());
+        }
+        if(field->getNextInterCrop() != nullptr){
+            ui->lbl_PlannedInterCrop->setText(tr("Inter Crop: ") + field->getNextInterCrop()->getName());
+        }
     }
 }
 

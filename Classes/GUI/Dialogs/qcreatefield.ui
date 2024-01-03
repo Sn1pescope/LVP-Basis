@@ -112,6 +112,22 @@
               <widget class="QWidget" name="widget1" native="true">
                <layout class="QVBoxLayout" name="verticalLayout_8">
                 <item>
+                 <widget class="QWidget" name="widget_2" native="true">
+                  <layout class="QFormLayout" name="formLayout_12">
+                   <item row="1" column="0">
+                    <widget class="QLabel" name="lblCrop1_2">
+                     <property name="text">
+                      <string>Main Crop: </string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="1" column="1">
+                    <widget class="QComboBox" name="cbCrop1_2"/>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QCheckBox" name="check1">
                   <property name="text">
                    <string>Inter Crop</string>
@@ -136,22 +152,6 @@
                    </item>
                    <item row="0" column="1">
                     <widget class="QComboBox" name="cbInterCrop1_2"/>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QWidget" name="widget_2" native="true">
-                  <layout class="QFormLayout" name="formLayout_12">
-                   <item row="1" column="0">
-                    <widget class="QLabel" name="lblCrop1_2">
-                     <property name="text">
-                      <string>Main Crop: </string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="1" column="1">
-                    <widget class="QComboBox" name="cbCrop1_2"/>
                    </item>
                   </layout>
                  </widget>
@@ -196,6 +196,22 @@
                  <number>0</number>
                 </property>
                 <item>
+                 <widget class="QWidget" name="widget_4" native="true">
+                  <layout class="QFormLayout" name="formLayout_8">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="lblCrop2">
+                     <property name="text">
+                      <string>Main Crop: </string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QComboBox" name="cbCrop2"/>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QCheckBox" name="check2">
                   <property name="text">
                    <string>Inter Crop</string>
@@ -214,22 +230,6 @@
                    </item>
                    <item row="0" column="1">
                     <widget class="QComboBox" name="cbInterCrop2"/>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QWidget" name="widget_4" native="true">
-                  <layout class="QFormLayout" name="formLayout_8">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="lblCrop2">
-                     <property name="text">
-                      <string>Main Crop: </string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QComboBox" name="cbCrop2"/>
                    </item>
                   </layout>
                  </widget>
@@ -274,6 +274,22 @@
                  <number>0</number>
                 </property>
                 <item>
+                 <widget class="QWidget" name="widget_6" native="true">
+                  <layout class="QFormLayout" name="formLayout_11">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="lblCrop3">
+                     <property name="text">
+                      <string>Main Crop: </string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QComboBox" name="cbCrop3"/>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QCheckBox" name="check3">
                   <property name="text">
                    <string>Inter Crop</string>
@@ -292,22 +308,6 @@
                    </item>
                    <item row="0" column="1">
                     <widget class="QComboBox" name="cbInterCrop3"/>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QWidget" name="widget_6" native="true">
-                  <layout class="QFormLayout" name="formLayout_11">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="lblCrop3">
-                     <property name="text">
-                      <string>Main Crop: </string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QComboBox" name="cbCrop3"/>
                    </item>
                   </layout>
                  </widget>
@@ -352,6 +352,22 @@
                  <number>0</number>
                 </property>
                 <item>
+                 <widget class="QWidget" name="widget_8" native="true">
+                  <layout class="QFormLayout" name="formLayout_10">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="lblCrop4">
+                     <property name="text">
+                      <string>Main Crop: </string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QComboBox" name="cbCrop4"/>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QCheckBox" name="check4">
                   <property name="text">
                    <string>Inter Crop</string>
@@ -370,22 +386,6 @@
                    </item>
                    <item row="0" column="1">
                     <widget class="QComboBox" name="cbInterCrop4"/>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QWidget" name="widget_8" native="true">
-                  <layout class="QFormLayout" name="formLayout_10">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="lblCrop4">
-                     <property name="text">
-                      <string>Main Crop: </string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QComboBox" name="cbCrop4"/>
                    </item>
                   </layout>
                  </widget>
@@ -430,6 +430,22 @@
                  <number>0</number>
                 </property>
                 <item>
+                 <widget class="QWidget" name="widget_9" native="true">
+                  <layout class="QFormLayout" name="formLayout_9">
+                   <item row="0" column="0">
+                    <widget class="QLabel" name="lblCrop5">
+                     <property name="text">
+                      <string>Main Crop: </string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item row="0" column="1">
+                    <widget class="QComboBox" name="cbCrop5"/>
+                   </item>
+                  </layout>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QCheckBox" name="check5">
                   <property name="text">
                    <string>Inter Crop</string>
@@ -448,22 +464,6 @@
                    </item>
                    <item row="0" column="1">
                     <widget class="QComboBox" name="cbInterCrop5"/>
-                   </item>
-                  </layout>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QWidget" name="widget_9" native="true">
-                  <layout class="QFormLayout" name="formLayout_9">
-                   <item row="0" column="0">
-                    <widget class="QLabel" name="lblCrop5">
-                     <property name="text">
-                      <string>Main Crop: </string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item row="0" column="1">
-                    <widget class="QComboBox" name="cbCrop5"/>
                    </item>
                   </layout>
                  </widget>

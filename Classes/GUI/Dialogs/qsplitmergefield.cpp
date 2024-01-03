@@ -131,7 +131,7 @@ void QSplitMergeField::done(int res){
         CCommunicator::deleteField(f2.getName());
         //add new field
         CDataManager::getCurrentFarm()->addField(CField(nameNew, sizeNew, regNumNew, crops[0], crops[1], crops[2], crops[3], crops[4],
-                                                        interCrops[0], interCrops[1], interCrops[2], interCrops[3], interCrops[4], nextCrop, nextInterCrop));
+                                                        interCrops[0], interCrops[1], interCrops[2], interCrops[3], interCrops[4], nextCrop, nextInterCrop, false, false));
         CDataManager::getCurrentFarm()->addFieldToWorkUnit(nameNew, wu);
     }else{
         //SPLIT
@@ -198,9 +198,9 @@ void QSplitMergeField::done(int res){
 
         //add new fields
         CDataManager::getCurrentFarm()->addField(CField(name1, size1, regNum1, crops[0], crops[1], crops[2], crops[3], crops[4],
-                                                        interCrops[0], interCrops[1], interCrops[2], interCrops[3], interCrops[4], nextCrop, nextInterCrop));
+                                                        interCrops[0], interCrops[1], interCrops[2], interCrops[3], interCrops[4], nextCrop, nextInterCrop, f1.isCropPlanted(), f1.isInterCropPlanted()));
         CDataManager::getCurrentFarm()->addField(CField(name2, size2, regNum2, crops[0], crops[1], crops[2], crops[3], crops[4],
-                                                        interCrops[0], interCrops[1], interCrops[2], interCrops[3], interCrops[4], nextCrop, nextInterCrop));
+                                                        interCrops[0], interCrops[1], interCrops[2], interCrops[3], interCrops[4], nextCrop, nextInterCrop, f1.isCropPlanted(), f1.isInterCropPlanted()));
         CDataManager::getCurrentFarm()->addFieldToWorkUnit(name1, wu);
         CDataManager::getCurrentFarm()->addFieldToWorkUnit(name2, wu);
         //delete old field

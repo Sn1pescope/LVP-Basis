@@ -12,7 +12,7 @@ public:
     CField();
     CField(QString name);
     CField(QString name, float size, QString regNum);
-    CField(QString name_par, float size_par, QString regNumber_par, QString lastCrop1, QString lastCrop2, QString lastCrop3, QString lastCrop4, QString lastCrop5, QString lastInterCrop1, QString lastInterCrop2, QString lastInterCrop3, QString lastInterCrop4, QString lastInterCrop5, QString nextCrop, QString nextInterCrop);
+    CField(QString name_par, float size_par, QString regNumber_par, QString lastCrop1, QString lastCrop2, QString lastCrop3, QString lastCrop4, QString lastCrop5, QString lastInterCrop1, QString lastInterCrop2, QString lastInterCrop3, QString lastInterCrop4, QString lastInterCrop5, QString nextCrop, QString nextInterCrop, bool cropPlanted, bool interCropPlanted);
 
     bool operator==(const CField &rhs);
 
@@ -24,6 +24,8 @@ public:
     CCrop* getLastInterCrop(int at);
     CCrop* getNextCrop();
     CCrop* getNextInterCrop();
+    bool isInterCropPlanted();
+    bool isCropPlanted();
     QString getName();
     float getSize();
     QString getRegNumber();
@@ -34,12 +36,14 @@ public:
     void setLastInterCrop(CCrop*);
     void setNextCrop(CCrop*);
     void setNextInterCrop(CCrop*);
+    void setInterCropPlanted(bool);
+    void setCropPlanted(bool);
 
     void setName(QString);
     void setSize(float);
     void setRegNumber(QString);
 
-    void setAllParameters(QString name_par, float size_par, QString regNumber_par, QString lastCrop1, QString lastCrop2, QString lastCrop3, QString lastCrop4, QString lastCrop5, QString lastInterCrop1, QString lastInterCrop2, QString lastInterCrop3, QString lastInterCrop4, QString lastInterCrop5, QString nextCrop, QString nextInterCrop);
+    void setAllParameters(QString name_par, float size_par, QString regNumber_par, QString lastCrop1, QString lastCrop2, QString lastCrop3, QString lastCrop4, QString lastCrop5, QString lastInterCrop1, QString lastInterCrop2, QString lastInterCrop3, QString lastInterCrop4, QString lastInterCrop5, QString nextCrop, QString nextInterCrop, bool cropPlanted, bool interCropPlanted);
 
 private:
     QString name;
@@ -49,6 +53,8 @@ private:
     CCrop* lastInterCrops[5] = {0};
     CCrop* nextCrop;
     CCrop* nextInterCrop;
+    bool interCropPlanted;
+    bool cropPlanted;
 };
 
 #endif // CFIELD_H

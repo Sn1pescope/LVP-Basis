@@ -16,9 +16,9 @@ CField::CField(QString name_par, float size_par, QString regNumber_par)
     regNumber = regNumber_par;
 }
 
-CField::CField(QString name_par, float size_par, QString regNumber_par, QString lastCrop1, QString lastCrop2, QString lastCrop3, QString lastCrop4, QString lastCrop5, QString lastInterCrop1, QString lastInterCrop2, QString lastInterCrop3, QString lastInterCrop4, QString lastInterCrop5, QString nextCrop, QString nextInterCrop)
+CField::CField(QString name_par, float size_par, QString regNumber_par, QString lastCrop1, QString lastCrop2, QString lastCrop3, QString lastCrop4, QString lastCrop5, QString lastInterCrop1, QString lastInterCrop2, QString lastInterCrop3, QString lastInterCrop4, QString lastInterCrop5, QString nextCrop, QString nextInterCrop, bool cropPlanted_par, bool interCropPlanted_par)
 {
-    setAllParameters(name_par, size_par, regNumber_par, lastCrop1, lastCrop2, lastCrop3, lastCrop4, lastCrop5, lastInterCrop1, lastInterCrop2, lastInterCrop3, lastInterCrop4, lastInterCrop5, nextCrop, nextInterCrop);
+    setAllParameters(name_par, size_par, regNumber_par, lastCrop1, lastCrop2, lastCrop3, lastCrop4, lastCrop5, lastInterCrop1, lastInterCrop2, lastInterCrop3, lastInterCrop4, lastInterCrop5, nextCrop, nextInterCrop, cropPlanted_par, interCropPlanted_par);
 }
 
 bool CField::operator==(const CField &rhs){
@@ -56,6 +56,14 @@ CCrop* CField::getNextCrop(){
 
 CCrop* CField::getNextInterCrop(){
     return nextInterCrop;
+}
+
+bool CField::isCropPlanted(){
+    return cropPlanted;
+}
+
+bool CField::isInterCropPlanted(){
+    return interCropPlanted;
 }
 
 QString CField::getName(){
@@ -102,6 +110,8 @@ std::vector<QString> CField::getAllAttributes(){
     }else{
         data.push_back("NULL");
     }
+    data.push_back(QString::number(cropPlanted));
+    data.push_back(QString::number(interCropPlanted));
 
     return data;
 }
@@ -160,7 +170,7 @@ void CField::setRegNumber(QString to){
     regNumber = to;
 }
 
-void CField::setAllParameters(QString name_par, float size_par, QString regNumber_par, QString lastCrop1, QString lastCrop2, QString lastCrop3, QString lastCrop4, QString lastCrop5, QString lastInterCrop1, QString lastInterCrop2, QString lastInterCrop3, QString lastInterCrop4, QString lastInterCrop5, QString nextCrop_par, QString nextInterCrop_par){
+void CField::setAllParameters(QString name_par, float size_par, QString regNumber_par, QString lastCrop1, QString lastCrop2, QString lastCrop3, QString lastCrop4, QString lastCrop5, QString lastInterCrop1, QString lastInterCrop2, QString lastInterCrop3, QString lastInterCrop4, QString lastInterCrop5, QString nextCrop_par, QString nextInterCrop_par, bool cropPlanted_par, bool interCropPlanted_par){
     name = name_par;
     size = size_par;
     regNumber = regNumber_par;
@@ -176,4 +186,6 @@ void CField::setAllParameters(QString name_par, float size_par, QString regNumbe
     lastInterCrops[4] = CDataManager::getCrop(lastInterCrop5);
     nextCrop = CDataManager::getCrop(nextCrop_par);
     nextInterCrop = CDataManager::getCrop(nextInterCrop_par);
+    cropPlanted = cropPlanted_par;
+    interCropPlanted = interCropPlanted_par;
 }

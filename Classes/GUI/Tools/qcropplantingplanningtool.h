@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QtCharts>
+#include <QComboBox>
 
 namespace Ui {
 class QCropPlantingPlanningTool;
@@ -19,8 +20,15 @@ public:
 private:
     void done(int);
 
+private slots:
+    void updateChart();
+
 private:
     Ui::QCropPlantingPlanningTool *ui;
+    QPieSeries* series;
+    float wholeSize;
+    QMap<QString, QString> currSelection;
+    QMap<QString, float> sizes;
 };
 
 #endif // QCROPPLANTINGPLANNINGTOOL_H

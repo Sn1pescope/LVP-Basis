@@ -2,8 +2,13 @@
  * @mysterious
  * Changelog LVP-Basis Module:
  *
- * --- V 0.1    "Beta"  :   -added Farm, Field and Crop Systems
- *                          -added Save system
+ * --- V 0.1    "Beta"      :   -added Farm, Field and Crop Systems
+ *                              -added Save system
+ *
+ * ----- Out of release     :   -bugfixes
+ *
+ * --- V 1.0    "Grundlage" :   - Added crop planting planning tool
+ *                              - Let user load farm at begin
 */
 
 #include <QApplication>
@@ -17,22 +22,27 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
-    //--------------------------- Main Program ----------------------------------
+    //--------------------------- Space for planning ----------------------------------
 
-    //Start main program
 
-    //TODO:
+    //TODO: Check if saving works everywhere in right directory (use beta for this)
+
+
+
+
+    //----- Release process ------------
 
     //Search: 'TODO'
     //Check window titles
     //Translate (lupdate, translate, lrelease)
     //Write changelog
+    //Write manual, dok, web
     //publish code
-    //Release beta
+    //Release version
+    //----------------------------------
 
-    //TODO: Go on with V1 Grundlage
 
-
+    //Start of program
     QMain m;
     m.resize(500, 500);
     return app.exec();

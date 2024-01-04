@@ -151,12 +151,12 @@ void QCreateField::done(int res){
                 //Add field
                 CDataManager::getCurrentFarm()->addField(CField(name, size.toFloat(), regNumber, sC.at(0), sC.at(1),
                                                                 sC.at(2), sC.at(3), sC.at(4), sC.at(5), sC.at(6),
-                                                                sC.at(7), sC.at(8), sC.at(9)));
+                                                                sC.at(7), sC.at(8), sC.at(9), 0, 0, false, false));
             }else{
                 //Update Field
                 CField* toUpdate = CDataManager::getCurrentFarm()->getField(oldName);
                 toUpdate->setAllParameters(name, size.toFloat(), regNumber, sC.at(0), sC.at(1), sC.at(2),
-                                           sC.at(3), sC.at(4), sC.at(5), sC.at(6), sC.at(7), sC.at(8), sC.at(9));
+                                           sC.at(3), sC.at(4), sC.at(5), sC.at(6), sC.at(7), sC.at(8), sC.at(9), toUpdate->getNextCrop()->getName(), toUpdate->getNextInterCrop()->getName(), toUpdate->isCropPlanted(), toUpdate->isInterCropPlanted());
                 //Update listView
                 this->parent()->findChild<QTreeWidget*>("listFields")->currentItem()->setText(0, name);
                 CCommunicator::saveData();

@@ -27,29 +27,9 @@
     <item>
      <layout class="QHBoxLayout" name="ControlBar">
       <item>
-       <widget class="QPushButton" name="buttonExit">
+       <widget class="QPushButton" name="btnPlantingPlanningTool">
         <property name="text">
-         <string>Exit</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QPushButton" name="buttonSave">
-        <property name="text">
-         <string>Save</string>
+         <string>Crop Planning</string>
         </property>
        </widget>
       </item>
@@ -65,6 +45,20 @@
          </size>
         </property>
        </spacer>
+      </item>
+      <item>
+       <widget class="Line" name="line">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="buttonSave">
+        <property name="text">
+         <string>Save</string>
+        </property>
+       </widget>
       </item>
       <item>
        <widget class="QPushButton" name="buttonSettings">
@@ -267,106 +261,127 @@
             <string>Crops</string>
            </property>
            <layout class="QFormLayout" name="formLayout_2">
-            <item row="1" column="1">
-             <widget class="QLabel" name="lbl_Crop1">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="2" column="1">
+            <item row="6" column="1">
              <widget class="QLabel" name="lbl_InterCrop2">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="3" column="1">
-             <widget class="QLabel" name="lbl_Crop2">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="4" column="1">
+            <item row="9" column="1">
              <widget class="QLabel" name="lbl_InterCrop3">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="5" column="1">
-             <widget class="QLabel" name="lbl_Crop3">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="1">
+            <item row="12" column="1">
              <widget class="QLabel" name="lbl_InterCrop4">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="7" column="1">
-             <widget class="QLabel" name="lbl_Crop4">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="8" column="1">
+            <item row="15" column="1">
              <widget class="QLabel" name="lbl_InterCrop5">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="9" column="1">
-             <widget class="QLabel" name="lbl_Crop5">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
+            <item row="3" column="1">
              <widget class="QLabel" name="lbl_InterCrop1">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="0" column="0">
-             <widget class="QLabel" name="lbl_HarvestYear1">
+            <item row="2" column="1">
+             <widget class="QLabel" name="lbl_Crop1">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
             <item row="2" column="0">
+             <widget class="QLabel" name="lbl_HarvestYear1">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="1">
+             <widget class="QLabel" name="lbl_Crop2">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0">
              <widget class="QLabel" name="lbl_HarvestYear2">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
-            <item row="4" column="0">
-             <widget class="QLabel" name="lbl_HarvestYear3">
-              <property name="text">
-               <string/>
-              </property>
-             </widget>
-            </item>
-            <item row="6" column="0">
-             <widget class="QLabel" name="lbl_HarvestYear4">
+            <item row="8" column="1">
+             <widget class="QLabel" name="lbl_Crop3">
               <property name="text">
                <string/>
               </property>
              </widget>
             </item>
             <item row="8" column="0">
+             <widget class="QLabel" name="lbl_HarvestYear3">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="1">
+             <widget class="QLabel" name="lbl_Crop4">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="11" column="0">
+             <widget class="QLabel" name="lbl_HarvestYear4">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="1">
+             <widget class="QLabel" name="lbl_Crop5">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="14" column="0">
              <widget class="QLabel" name="lbl_HarvestYear5">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1">
+             <widget class="QLabel" name="lbl_PlannedCrop">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="1">
+             <widget class="QLabel" name="lbl_PlannedInterCrop">
+              <property name="text">
+               <string/>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="0">
+             <widget class="QLabel" name="lbl_NextHarvestYear">
               <property name="text">
                <string/>
               </property>
@@ -406,22 +421,6 @@
    <hints>
     <hint type="sourcelabel">
      <x>689</x>
-     <y>22</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>369</x>
-     <y>216</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>buttonExit</sender>
-   <signal>clicked()</signal>
-   <receiver>QMain</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>49</x>
      <y>22</y>
     </hint>
     <hint type="destinationlabel">
@@ -542,6 +541,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btnPlantingPlanningTool</sender>
+   <signal>clicked()</signal>
+   <receiver>QMain</receiver>
+   <slot>cropPlanning()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>61</x>
+     <y>22</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>378</x>
+     <y>270</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openSettings()</slot>
@@ -553,5 +568,6 @@
   <slot>setWorkUnit()</slot>
   <slot>splitField()</slot>
   <slot>mergeFields()</slot>
+  <slot>cropPlanning()</slot>
  </slots>
 </ui>

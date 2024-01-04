@@ -26,7 +26,15 @@ void CFarm::ini(QString farmName_par){
             QStringList fieldData = farmData.value("fieldData");
             foreach(QString field, fieldData){
                 QStringList l = field.split(QLatin1Char(' '));
-                fields.push_back(CField(l.at(0), l.at(1).toFloat(), l.at(2), l.at(3), l.at(4), l.at(5), l.at(6), l.at(7), l.at(8), l.at(9), l.at(10), l.at(11), l.at(12)));
+                //Check length and append empty values
+                int needed = 17 - l.length();
+                for(int i = 0; i < needed; i++){
+                    l.push_back("NULL");
+                }
+                bool one = l.at(15) == "1";
+                bool two = l.at(16) == "1";
+
+                fields.push_back(CField(l.at(0), l.at(1).toFloat(), l.at(2), l.at(3), l.at(4), l.at(5), l.at(6), l.at(7), l.at(8), l.at(9), l.at(10), l.at(11), l.at(12), l.at(13), l.at(14), one, two));
             }
         }
         //WorkUnits

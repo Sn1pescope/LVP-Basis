@@ -49,6 +49,8 @@ protected slots:
     void slotWelcomeBoxChanged(int index);
 
 private slots:
+    void cropPlanning();
+
     void updateMainScreenActive();
     void updateCurrentField();
 

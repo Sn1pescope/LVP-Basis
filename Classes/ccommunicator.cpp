@@ -28,7 +28,7 @@ void CCommunicator::saveData(){
     //TODO: Save all Data to workDir
     CFileManager::writeFarmData();
 
-    //TODO: Save all configs
+    //Save all configs
     CFileManager::writeConfFile();
     CFileManager::writeCropFile();
 

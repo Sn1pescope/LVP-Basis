@@ -18,27 +18,20 @@ void CFarm::ini(QString farmName_par){
     farmName = farmName_par;
     workDir = QDir(QString::fromStdString("Data/") + farmName);
 
-    QMap<QString, QStringList> farmData = CFileManager::getFarmData(workDir, farmName);
+    CFileManager::loadNewFarm(workDir, farmName);
+    QMap<QString, QStringList> farmData = CFileManager::getFarmData();
 
     if(!farmData.empty()){
         //Fields
-        if(farmData.contains("fieldData")){
-            QStringList fieldData = farmData.value("fieldData");
+        if(farmData.contains("fields")){
+            QStringList fieldData = farmData.value("fields");
             foreach(QString field, fieldData){
                 QStringList l = field.split(QLatin1Char(' '));
-                //Check length and append empty values
-                int needed = 17 - l.length();
-                for(int i = 0; i < needed; i++){
-                    l.push_back("NULL");
-                }
-                bool one = l.at(15) == "1";
-                bool two = l.at(16) == "1";
-
-                fields.push_back(CField(l.at(0), l.at(1).toFloat(), l.at(2), l.at(3), l.at(4), l.at(5), l.at(6), l.at(7), l.at(8), l.at(9), l.at(10), l.at(11), l.at(12), l.at(13), l.at(14), one, two));
+                fields.push_back(CField(l.at(0), l.at(1).toFloat(), l.at(2), l.at(3), l.at(4), l.at(5) == "1", l.at(6) == "1", workDir));
             }
         }
         //WorkUnits
-        if(farmData.contains("workUnitData")){
+        if(farmData.contains("workUnits")){
             QStringList workUnitData = farmData.value("workUnitData");
             foreach(QString workUnit, workUnitData){
                 QStringList l = workUnit.split(QLatin1Char(' '));

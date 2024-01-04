@@ -16,6 +16,10 @@
 #           key: name           data: <FarmName>
 #           key: workDir        data: <PathOfWorkDir>
 #           key: workUnits      data: <AllAtributesOfAllWorkUnits>
+#
+#       Field files /Data/<FieldName>/<FieldName_YEAR>.lvpf:
+#           key: crop           data: <Crop of this year>
+#           key: inter          data: <InterCrop of this year>
 */
 
 #include "Classes/cdatamanager.h"
@@ -29,7 +33,9 @@ QDir CFileManager::confDir;
 QFile CFileManager::confFile;
 QFile CFileManager::cropFile;
 QMap<QString, QString> CFileManager::confData;                  //keys: farmNames | defaultLocale | harvestYearEnd
-QMap<QString, QString> CFileManager::cropsData;                  //keys: for every crop one key
+QMap<QString, QString> CFileManager::cropsData;                 //keys: for every crop one key
+
+QMap<QString, QStringList> CFileManager::farmData;                  //keys: fields | name | workDir | workUnits
 
 CFileManager::CFileManager()
 {
@@ -150,6 +156,7 @@ void CFileManager::writeCropFile(){
 }
 
 void CFileManager::writeFarmData(){
+    //TODO: Just save essential field data here -> make file for each field and year with other data
     //Write data to workDir
     if(CDataManager::getCurrentFarm() == 0){
         return;
@@ -169,16 +176,19 @@ void CFileManager::writeFarmData(){
     QString fieldData;
     std::vector<CField> fields = CDataManager::getCurrentFarm()->getAllFields();
     for(int i = 0; i < (int)fields.size(); i++){
+        CField f = fields.at(i);
         if(i != 0){
             fieldData += ";";
         }
-        std::vector<QString> attributes = fields.at(i).getAllAttributes();
+        std::vector<QString> attributes = f.getAllEssentialAttributes();
         for(int j = 0; j < (int)attributes.size(); j++){
             if(j != 0){
                 fieldData += " ";
             }
             fieldData += attributes.at(j);
         }
+        //Create field files
+        writeFieldFiles(f, workDir);
     }
 
     // WorkUnits
@@ -221,6 +231,34 @@ void CFileManager::writeFarmData(){
     farmFile.close();
 }
 
+void CFileManager::writeFieldFiles(CField of, QDir workDir){
+    //Folder with fieldname; in it for every year one file with data of this year
+    workDir.setPath(workDir.path() + "/" + of.getName());
+    if(!workDir.exists()){
+        workDir.mkpath(".");
+    }
+
+    //Save last 5 years -> all longer ago isnt editable anymore
+    int year = QDate::currentDate().year();
+    for(int i = 0; i < 5; i++){
+        //Create a file -> Save data in it
+        QFile fieldFile(workDir.filePath(of.getName() + "_%1" + ".lvpf").arg(year-i));
+        if(!fieldFile.open(QIODevice::WriteOnly)){
+            return;
+        }
+        fieldFile.resize(0);
+
+        QMap<QString, QString> data = of.getFieldData(i);
+
+        QDataStream out(&fieldFile);
+        out.setVersion(QDataStream::Qt_5_5);
+        out << data;
+        fieldFile.close();
+    }
+
+
+}
+
 QString CFileManager::openFarmData(QDir dir){
     //Create new folder in /Data
     QDir workDir(QCoreApplication::applicationDirPath() + "/Data/" + dir.dirName());
@@ -235,6 +273,43 @@ QString CFileManager::openFarmData(QDir dir){
     }
     return "";
 
+}
+
+void CFileManager::loadNewFarm(QDir workDir, QString farmName){
+    //Load farmData in Map
+    QMap<QString, QString> data;
+    QFile farmFile(workDir.filePath(farmName + ".lvp"));
+    //Get data
+    if(farmFile.open(QIODevice::ReadOnly)){
+        QDataStream in(&farmFile);
+        in.setVersion(QDataStream::Qt_5_5);
+        in >> data;
+        farmFile.close();
+    }
+    //QMap<QString, QStringList> farmData;
+
+    //Put data to right place
+
+    //key: fields
+    if(data.contains("fields")){
+        QString valString = data.value("fields");
+        QStringList fields = valString.split(QLatin1Char(';'));
+        farmData.insert(QString::fromStdString("fields"), fields);
+    }
+    //key: workUnits
+    if(data.contains("workUnits")){
+        QString valString = data.value("workUnits");
+        QStringList workUnits = valString.split(QLatin1Char(';'));
+        farmData.insert(QString::fromStdString("workUnits"), workUnits);
+    }
+    //key: name
+    if(data.contains("name")){
+        farmData.insert(QString::fromStdString("name"), QStringList(data.value("name")));
+    }
+    //key: workDir
+    if(data.contains("workDir")){
+        farmData.insert(QString::fromStdString("workDir"), QStringList(data.value("workDir")));
+    }
 }
 
 void CFileManager::updateFarmDir(QDir oldDir, QString oldName, QString to){
@@ -281,7 +356,31 @@ void CFileManager::loadCropData(){
 }
 
 
+QMap<QString, QString> CFileManager::loadFieldData(QString name, int yearsBack, QDir workDir){
+    QMap<QString, QString> data;
+    workDir.setPath(workDir.path() + "/" + name);
+    //Load special year
+    int year = QDate::currentDate().year();
+    QFile fieldFile(workDir.filePath(name + "_%1" + ".lvpf").arg(year-yearsBack));
+    if(fieldFile.open(QIODevice::ReadOnly)){
+        QDataStream in(&fieldFile);
+        in.setVersion(QDataStream::Qt_5_5);
+        in >> data;
+        fieldFile.close();
+    }
+    return data;
+}
+
 //-------------------------- Getter ---------------------------
+
+int CFileManager::getNumberOfDataFiles(QString name, QDir workDir){
+    workDir.setPath(workDir.path() + "/" + name);
+    return workDir.entryList(QDir::Files | QDir::NoSymLinks).size();
+}
+
+QMap<QString, QString> CFileManager::getFieldData(QString name, int yearsBack, QDir workDir){
+    return loadFieldData(name, yearsBack, workDir);
+}
 
 QString CFileManager::getLastFarmName(){
     if(tmpData.contains("lastFarm")){
@@ -316,31 +415,10 @@ std::vector<QStringList> CFileManager::getCropData(){
     return cropData;
 }
 
-QMap<QString, QStringList> CFileManager::getFarmData(QDir workDir, QString farmName){
-        QMap<QString, QString> data;
-        QFile farmFile(workDir.filePath(farmName + ".lvp"));
-        //Get data
-        if(farmFile.open(QIODevice::ReadOnly)){
-            QDataStream in(&farmFile);
-            in.setVersion(QDataStream::Qt_5_5);
-            in >> data;
-            farmFile.close();
-        }
-        QMap<QString, QStringList> farmData;
-
-        //Put data to right place
-        if(data.contains("fields")){
-            QString valString = data.value("fields");
-            QStringList fields = valString.split(QLatin1Char(';'));
-            farmData.insert(QString::fromStdString("fieldData"), fields);
-        }
-        if(data.contains("workUnits")){
-            QString valString = data.value("workUnits");
-            QStringList workUnits = valString.split(QLatin1Char(';'));
-            farmData.insert(QString::fromStdString("workUnitData"), workUnits);
-        }
-        return farmData;
-    }
+QMap<QString, QStringList> CFileManager::getFarmData(){
+    //Return from map
+    return farmData;
+}
 
 QString CFileManager::getDefaultLocale(){
     if(confData.contains("defaultLocale")){

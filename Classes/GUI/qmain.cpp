@@ -166,11 +166,15 @@ void QMain::updateCurrentField(){
                 //Crops
                 if(field->getLastCrop(i - 5) != nullptr){
                     lbls[i]->setText(tr("Crop: ") + field->getLastCrop(i - 5)->getName());
+                }else{
+                    lbls[i]->setText("");
                 }
             }else{
                 //InterCrops
                 if(field->getLastInterCrop(i - 10) != nullptr){
                     lbls[i]->setText(tr("Inter Crop: ") + field->getLastInterCrop(i - 10)->getName());
+                }else{
+                    lbls[i]->setText("");
                 }
             }
         }
@@ -179,9 +183,13 @@ void QMain::updateCurrentField(){
         lbls[17]->setText(field->getRegNumber());
         if(field->getNextCrop() != nullptr){
             ui->lbl_PlannedCrop->setText(tr("Crop: ") + field->getNextCrop()->getName());
+        }else{
+            ui->lbl_PlannedCrop->setText("");
         }
         if(field->getNextInterCrop() != nullptr){
             ui->lbl_PlannedInterCrop->setText(tr("Inter Crop: ") + field->getNextInterCrop()->getName());
+        }else{
+            ui->lbl_PlannedInterCrop->setText("");
         }
     }
 }

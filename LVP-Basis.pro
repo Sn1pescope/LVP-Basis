@@ -13,6 +13,7 @@ SOURCES += \
         Classes/GUI/Dialogs/qcreatefarm.cpp \
         Classes/GUI/Dialogs/qcreatefield.cpp \
         Classes/GUI/Dialogs/qeditcrop.cpp \
+        Classes/GUI/Dialogs/qloadfarm.cpp \
         Classes/GUI/Dialogs/qnewworkunit.cpp \
         Classes/GUI/Dialogs/qsettingsdialog.cpp \
         Classes/GUI/Dialogs/qsplitmergefield.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     Classes/GUI/Dialogs/qcreatefarm.h \
     Classes/GUI/Dialogs/qcreatefield.h \
     Classes/GUI/Dialogs/qeditcrop.h \
+    Classes/GUI/Dialogs/qloadfarm.h \
     Classes/GUI/Dialogs/qnewworkunit.h \
     Classes/GUI/Dialogs/qsettingsdialog.h \
     Classes/GUI/Dialogs/qsplitmergefield.h \
@@ -63,6 +65,7 @@ FORMS += \
     Classes/GUI/Dialogs/qcreatefarm.ui \
     Classes/GUI/Dialogs/qcreatefield.ui \
     Classes/GUI/Dialogs/qeditcrop.ui \
+    Classes/GUI/Dialogs/qloadfarm.ui \
     Classes/GUI/Dialogs/qnewworkunit.ui \
     Classes/GUI/Dialogs/qsettingsdialog.ui \
     Classes/GUI/Dialogs/qsplitmergefield.ui \

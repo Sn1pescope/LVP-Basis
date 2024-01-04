@@ -182,7 +182,16 @@ QCropPlantingPlanningTool::~QCropPlantingPlanningTool()
 
 void QCropPlantingPlanningTool::done(int res){
     if(res == QDialog::Accepted){
-        //TODO: Write data to every field
+        //Get for every row the cbs, get their field property, set data to field
+        for(int i = 0; i < ui->tableWidget->rowCount(); i++){
+            QComboBox* cb = (QComboBox*)ui->tableWidget->cellWidget(i, 0);
+            QComboBox* cbInter = (QComboBox*)ui->tableWidget->cellWidget(i, 1);
+            QString fieldName = cb->property("field").toString();
+            QString nextCrop = cb->currentText();
+            QString nextInter = cbInter->currentText();
+            CDataManager::getCurrentFarm()->getField(fieldName)->setNextCrop(CDataManager::getCrop(nextCrop));
+            CDataManager::getCurrentFarm()->getField(fieldName)->setNextInterCrop(CDataManager::getCrop(nextInter));
+        }
     }
     QDialog::done(res);
 }

@@ -7,7 +7,8 @@
  *
  * ----- Out of release     :   -bugfixes
  *
- * --- V 1.0    "Grundlage" :
+ * --- V 1.0    "Grundlage" :   - Added crop planting planning tool
+ *                              - Let user load farm at begin
 */
 
 #include <QApplication>
@@ -23,10 +24,6 @@ int main(int argc, char *argv[])
 
     //--------------------------- Space for planning ----------------------------------
 
-    //TODO: -crop planting planing tool
-    //TODO: Program planning tool
-
-    //TODO: Main screen shows current state of fields (Add label with current year): if crop has planned crops -> show it
 
     //TODO: Check if saving works everywhere in right directory (use beta for this)
 

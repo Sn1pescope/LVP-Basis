@@ -1,5 +1,6 @@
 #include "qwelcome.h"
 #include "ui_qwelcome.h"
+#include "Classes/GUI/Dialogs/qloadfarm.h"
 
 QWelcome::QWelcome(QWidget* parent) :
     QDialog(parent),
@@ -28,9 +29,11 @@ QWelcome::QWelcome(QWidget* parent) :
 void QWelcome::done(int res){
     if(res == QDialog::Accepted){
         if(!complete){
-            //Create farm
-            QCreateFarm dia(this);
-            dia.exec();
+            //Create farm or load one
+            if(!QLoadFarm(this).exec()){
+                QCreateFarm dia(this);
+                dia.exec();
+            }
             complete = true;
         }
     }else if(res ==QDialog::Rejected){

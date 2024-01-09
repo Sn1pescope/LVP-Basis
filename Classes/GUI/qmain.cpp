@@ -80,6 +80,11 @@ void QMain::deleteField(){
         QString name = ui->listFields->currentItem()->text(0);
         QWarningDialog warn(this, tr("Delete Field"), tr("Do you really want to delete field '%1'?").arg(name), true, true);
         if(warn.exec()){
+            bool data = QWarningDialog(this, tr("Delete field"), tr("Do you want to save the data of field '%1' in an external file before deleting the field?").arg(name), true, false, true).exec();
+            if(data){
+                QString path = CCommunicator::exportFieldData(name);
+                QWarningDialog(this, tr("Information"), tr("Data was saved in following directory:\n'%1'").arg(path), true).exec();
+            }
             //Delete field
             CCommunicator::deleteFieldOfCurrentFarm(name);
             //Update listWidget

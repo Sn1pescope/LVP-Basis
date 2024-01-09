@@ -231,7 +231,7 @@ void CFileManager::writeFarmData(){
     farmFile.close();
 }
 
-void CFileManager::writeFieldFiles(CField of, QDir workDir){
+QString CFileManager::writeFieldFiles(CField of, QDir workDir){
     //Folder with fieldname; in it for every year one file with data of this year
     workDir.setPath(workDir.path() + "/" + of.getName());
     if(!workDir.exists()){
@@ -244,7 +244,7 @@ void CFileManager::writeFieldFiles(CField of, QDir workDir){
         //Create a file -> Save data in it
         QFile fieldFile(workDir.filePath(of.getName() + "_%1" + ".lvpf").arg(year-i));
         if(!fieldFile.open(QIODevice::WriteOnly)){
-            return;
+            return "";
         }
         fieldFile.resize(0);
 
@@ -256,7 +256,11 @@ void CFileManager::writeFieldFiles(CField of, QDir workDir){
         fieldFile.close();
     }
 
+    return workDir.path();
+}
 
+QString CFileManager::exportFieldData(CField f, QDir workDir){
+    return writeFieldFiles(f, workDir);
 }
 
 QString CFileManager::openFarmData(QDir dir){
@@ -321,7 +325,6 @@ void CFileManager::updateFarmDir(QDir oldDir, QString oldName, QString to){
     oldDir.cdUp();
     oldDir.rename(oldName, to);
 }
-
 
 void CFileManager::loadConfData(){
     confData.clear();

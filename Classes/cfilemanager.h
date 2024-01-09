@@ -11,6 +11,7 @@
 #include <QDateTime>
 #include <QString>
 #include <QDir>
+#include <QPrinter>
 #include <Classes/clanguagemanager.h>
 
 
@@ -28,6 +29,7 @@ public:
     static void writeFarmData();
     static QString openFarmData(QDir);
     static void loadNewFarm(QDir, QString);
+    static QString exportFieldData(CField, QDir);
 
     static void updateFarmDir(QDir oldDir, QString oldName, QString to);
 
@@ -43,12 +45,13 @@ public:
     static int getHarvestYearEnd();
     static int getNumberOfDataFiles(QString, QDir);
 
+
 private:
     static void loadConfData();
     static void loadTmpData();
     static void loadCropData();
 
-    static void writeFieldFiles(CField, QDir);
+    static QString writeFieldFiles(CField, QDir);
     static QMap<QString, QString> loadFieldData(QString, int, QDir);
 
 private:

@@ -15,7 +15,7 @@ class QWarningDialog : public QDialog
 
     //---------------------------------- Constructors -----------------------------------------------
 public:
-    explicit QWarningDialog(QWidget *parent = nullptr, QString title = tr("Warning!"), QString text = tr("This is a warning!"), bool okButton = false, bool cancelButton = false);
+    explicit QWarningDialog(QWidget *parent = nullptr, QString title = tr("Warning!"), QString text = tr("This is a warning!"), bool okButton = false, bool cancelButton = false, bool noButton = false);
     explicit QWarningDialog(QWidget *parent = nullptr, QString text = tr("This is a warning!"), bool okButton = false, bool cancelButton = false);
     explicit QWarningDialog(QWidget *parent = nullptr, bool okButton = false, bool cancelButton = false);
     ~QWarningDialog();

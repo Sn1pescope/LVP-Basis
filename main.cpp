@@ -28,8 +28,7 @@ int main(int argc, char *argv[])
 
     //TODO: Measures system: Field can have done measures, and planned measures, state of field,
     //      farm has overview over all planned measures, different types of measures
-    //      Overwork saving system: Delete field: Ask if you want to delete data too or export it
-    //      -> need function to show data out of range too
+    //      -> need function to show data out of range too -> In Reports later
 
     //TODO: Calendar tool to plan measures
 

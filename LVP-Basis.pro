@@ -1,4 +1,4 @@
-QT += gui widgets charts
+QT += gui widgets charts printsupport
 
 CONFIG += c++11
 CONFIG += app_bundle

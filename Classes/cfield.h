@@ -1,6 +1,8 @@
 #ifndef CFIELD_H
 #define CFIELD_H
 
+#include "Classes/cmeasure.h"
+#include "qdir.h"
 #pragma once
 
 #include <QString>
@@ -10,14 +12,20 @@ class CField
 {
 public:
     CField();
+    //For searching
     CField(QString name);
-    CField(QString name, float size, QString regNum);
+    //For creation by loading farm
+    CField(QString name, float size, QString regNum, QString, QString, bool, bool, QDir);
+    //For use in app (createfield, splitmergefield, ...)
     CField(QString name_par, float size_par, QString regNumber_par, QString lastCrop1, QString lastCrop2, QString lastCrop3, QString lastCrop4, QString lastCrop5, QString lastInterCrop1, QString lastInterCrop2, QString lastInterCrop3, QString lastInterCrop4, QString lastInterCrop5, QString nextCrop, QString nextInterCrop, bool cropPlanted, bool interCropPlanted);
 
     bool operator==(const CField &rhs);
 
     //------------ Methods ------------------------
     bool usesCrop(QString name);
+
+    void addMeasure(CMeasure*);
+    void removeMeasure(int);
 
     //----- Getter -----
     CCrop* getLastCrop(int at);
@@ -29,7 +37,8 @@ public:
     QString getName();
     float getSize();
     QString getRegNumber();
-    std::vector<QString> getAllAttributes();
+    std::vector<QString> getAllEssentialAttributes();
+    QMap<QString, QString> getFieldData(int);
 
     //----- Setter -----
     void setLastCrop(CCrop*);
@@ -55,6 +64,8 @@ private:
     CCrop* nextInterCrop;
     bool interCropPlanted;
     bool cropPlanted;
+    std::vector<CMeasure*> measures;
+
 };
 
 #endif // CFIELD_H

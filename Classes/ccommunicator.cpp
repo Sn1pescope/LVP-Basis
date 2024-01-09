@@ -28,7 +28,7 @@ void CCommunicator::saveData(){
     //TODO: Save all Data to workDir
     CFileManager::writeFarmData();
 
-    //TODO: Save all configs
+    //Save all configs
     CFileManager::writeConfFile();
     CFileManager::writeCropFile();
 
@@ -104,6 +104,10 @@ void CCommunicator::deleteField(QString name){
 void CCommunicator::deleteFieldOfCurrentFarm(QString name){
     deleteField(name);
     saveData();
+}
+
+QString CCommunicator::exportFieldData(QString name){
+    return CFileManager::exportFieldData(*CDataManager::getCurrentFarm()->getField(name), QDir(QDir::homePath() + "/LVP-Data"));
 }
 
 

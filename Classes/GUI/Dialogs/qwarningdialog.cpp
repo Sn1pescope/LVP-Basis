@@ -1,7 +1,7 @@
 #include "qwarningdialog.h"
 #include "ui_qwarningdialog.h"
 
-QWarningDialog::QWarningDialog(QWidget *parent, QString title, QString text, bool okButton, bool cancelButton) :
+QWarningDialog::QWarningDialog(QWidget *parent, QString title, QString text, bool okButton, bool cancelButton, bool noButton) :
     QDialog(parent),
     ui(new Ui::QWarningDialog)
 {
@@ -13,6 +13,9 @@ QWarningDialog::QWarningDialog(QWidget *parent, QString title, QString text, boo
     }
     if(cancelButton){
         ui->buttonBox->addButton(QDialogButtonBox::Cancel);
+    }
+    if(noButton){
+        ui->buttonBox->addButton(QDialogButtonBox::No);
     }
 }
 

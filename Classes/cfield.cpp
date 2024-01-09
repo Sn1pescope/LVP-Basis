@@ -9,11 +9,39 @@ CField::CField(QString name_par){
     name = name_par;
 }
 
-CField::CField(QString name_par, float size_par, QString regNumber_par)
+CField::CField(QString name_par, float size_par, QString regNumber_par, QString nextCrop_par, QString nextInterCrop_par, bool cropPlanted_par, bool interCropPlanted_par, QDir work)
 {
     name = name_par;
     size = size_par;
     regNumber = regNumber_par;
+
+    nextCrop = CDataManager::getCrop(nextCrop_par);
+    nextInterCrop = CDataManager::getCrop(nextInterCrop_par);
+    cropPlanted = cropPlanted_par;
+    interCropPlanted = interCropPlanted_par;
+
+    //Load fieldData
+    for(int i = 0; i < CFileManager::getNumberOfDataFiles(name, work); i++){
+        QMap<QString, QString> data = CFileManager::getFieldData(name, i, work);
+
+        //Crops
+        if(i < 5){
+            QString crop = "NULL";
+            QString inter = "NULL";
+            if(data.contains("crop")){
+                crop = data.value("crop");
+            }
+            if(data.contains("interCrop")){
+                inter = data.value("interCrop");
+            }
+            lastCrops[i] = CDataManager::getCrop(crop);
+            lastInterCrops[i] = CDataManager::getCrop(inter);
+        }
+
+        //TODO: Get measures
+
+        //More data...
+    }
 }
 
 CField::CField(QString name_par, float size_par, QString regNumber_par, QString lastCrop1, QString lastCrop2, QString lastCrop3, QString lastCrop4, QString lastCrop5, QString lastInterCrop1, QString lastInterCrop2, QString lastInterCrop3, QString lastInterCrop4, QString lastInterCrop5, QString nextCrop, QString nextInterCrop, bool cropPlanted_par, bool interCropPlanted_par)
@@ -37,6 +65,17 @@ bool CField::usesCrop(QString name){
         }
     }
     return false;
+}
+
+void CField::addMeasure(CMeasure* measure){
+    measures.push_back(measure);
+    //Sort after date
+    std::sort(measures.begin(), measures.end());
+}
+
+void CField::removeMeasure(int at){
+    delete measures.at(at);
+    measures.erase(measures.begin() + at);
 }
 
 
@@ -78,27 +117,13 @@ QString CField::getRegNumber(){
     return regNumber;
 }
 
-std::vector<QString> CField::getAllAttributes(){
+std::vector<QString> CField::getAllEssentialAttributes(){
     std::vector<QString> data;
-    //TODO: Add all attributes to save
+    //Add all attributes to save
     data.push_back(getName());
     data.push_back(QString::number(getSize()));
     data.push_back(getRegNumber());
-    //Can also be empty
-    for(int i = 0; i < 5; i++){
-        if(getLastCrop(i) != 0){
-            data.push_back(getLastCrop(i)->getName());
-        }else{
-            data.push_back("NULL");
-        }
-    }
-    for(int i = 0; i < 5; i++){
-        if(getLastInterCrop(i) != 0){
-            data.push_back(getLastInterCrop(i)->getName());
-        }else{
-            data.push_back("NULL");
-        }
-    }
+
     //Can also be empty
     if(getNextCrop() != 0){
         data.push_back(getNextCrop()->getName());
@@ -112,6 +137,32 @@ std::vector<QString> CField::getAllAttributes(){
     }
     data.push_back(QString::number(cropPlanted));
     data.push_back(QString::number(interCropPlanted));
+
+    return data;
+}
+
+QMap<QString, QString> CField::getFieldData(int yearsBack){
+    QMap<QString, QString> data;
+
+    //Last Crops and interCrops: Can also be empty
+    QString crop;
+    QString interCrop;
+    if(getLastCrop(yearsBack) != 0){
+        crop = getLastCrop(yearsBack)->getName();
+    }else{
+        crop = "NULL";
+    }
+    if(getLastInterCrop(yearsBack) != 0){
+        interCrop = getLastInterCrop(yearsBack)->getName();
+    }else{
+        interCrop = "NULL";
+    }
+    data.insert(QString::fromStdString("crop"), crop);
+    data.insert(QString::fromStdString("interCrop"), interCrop);
+
+    //TODO: Get measures for year
+
+    //More data...
 
     return data;
 }

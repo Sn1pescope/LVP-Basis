@@ -1,4 +1,4 @@
-QT += gui widgets charts
+QT += gui widgets charts printsupport
 
 CONFIG += c++11
 CONFIG += app_bundle
@@ -29,6 +29,7 @@ SOURCES += \
         Classes/cfield.cpp \
         Classes/cfilemanager.cpp \
         Classes/clanguagemanager.cpp \
+        Classes/cmeasure.cpp \
         Classes/csecuritymanager.cpp \
         Classes/cworkunit.cpp \
         main.cpp
@@ -58,6 +59,7 @@ HEADERS += \
     Classes/cfield.h \
     Classes/cfilemanager.h \
     Classes/clanguagemanager.h \
+    Classes/cmeasure.h \
     Classes/csecuritymanager.h \
     Classes/cworkunit.h
 

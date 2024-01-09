@@ -9,6 +9,8 @@
  *
  * --- V 1.0    "Grundlage" :   - Added crop planting planning tool
  *                              - Let user load farm at begin
+ *                              - Added calendar planning tool and measures system
+ *                              - reworked field data saving
 */
 
 #include <QApplication>
@@ -23,6 +25,12 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
 
     //--------------------------- Space for planning ----------------------------------
+
+    //TODO: Measures system: Field can have done measures, and planned measures, state of field,
+    //      farm has overview over all planned measures, different types of measures
+    //      -> need function to show data out of range too -> In Reports later
+
+    //TODO: Calendar tool to plan measures
 
 
     //TODO: Check if saving works everywhere in right directory (use beta for this)
@@ -39,6 +47,7 @@ int main(int argc, char *argv[])
     //Write manual, dok, web
     //publish code
     //Release version
+
     //----------------------------------
 
 

@@ -34,6 +34,7 @@ public:
     //Fields
     static void deleteFieldOfCurrentFarm(QString);
     static void deleteField(QString name);
+    static QString exportFieldData(QString name);
     //Crops
     static void deleteCrop(QString);
     //Settings

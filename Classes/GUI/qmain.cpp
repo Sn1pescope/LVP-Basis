@@ -80,6 +80,11 @@ void QMain::deleteField(){
         QString name = ui->listFields->currentItem()->text(0);
         QWarningDialog warn(this, tr("Delete Field"), tr("Do you really want to delete field '%1'?").arg(name), true, true);
         if(warn.exec()){
+            bool data = QWarningDialog(this, tr("Delete field"), tr("Do you want to save the data of field '%1' in an external file before deleting the field?").arg(name), true, false, true).exec();
+            if(data){
+                QString path = CCommunicator::exportFieldData(name);
+                QWarningDialog(this, tr("Information"), tr("Data was saved in following directory:\n'%1'").arg(path), true).exec();
+            }
             //Delete field
             CCommunicator::deleteFieldOfCurrentFarm(name);
             //Update listWidget
@@ -166,11 +171,15 @@ void QMain::updateCurrentField(){
                 //Crops
                 if(field->getLastCrop(i - 5) != nullptr){
                     lbls[i]->setText(tr("Crop: ") + field->getLastCrop(i - 5)->getName());
+                }else{
+                    lbls[i]->setText("");
                 }
             }else{
                 //InterCrops
                 if(field->getLastInterCrop(i - 10) != nullptr){
                     lbls[i]->setText(tr("Inter Crop: ") + field->getLastInterCrop(i - 10)->getName());
+                }else{
+                    lbls[i]->setText("");
                 }
             }
         }
@@ -179,9 +188,13 @@ void QMain::updateCurrentField(){
         lbls[17]->setText(field->getRegNumber());
         if(field->getNextCrop() != nullptr){
             ui->lbl_PlannedCrop->setText(tr("Crop: ") + field->getNextCrop()->getName());
+        }else{
+            ui->lbl_PlannedCrop->setText("");
         }
         if(field->getNextInterCrop() != nullptr){
             ui->lbl_PlannedInterCrop->setText(tr("Inter Crop: ") + field->getNextInterCrop()->getName());
+        }else{
+            ui->lbl_PlannedInterCrop->setText("");
         }
     }
 }

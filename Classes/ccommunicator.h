@@ -40,6 +40,9 @@ public:
     //Settings
     static QString generateHarvestYearString(int yearsBack);
     static void setHarvestYearEnd(int);
+    static void setLoadYearsBefore(int);
+
+    static QDate getCurrentHarvestYearBegin();
 };
 
 #endif // CCOMMUNICATOR_H

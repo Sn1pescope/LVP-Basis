@@ -2,6 +2,11 @@
 #define CFIELD_H
 
 #include "Classes/cmeasure.h"
+#include "Classes/MeasureTypes/cmeasurecultivating.h"
+#include "Classes/MeasureTypes/cmeasureseeding.h"
+#include "Classes/MeasureTypes/cmeasurefertilizing.h"
+#include "Classes/MeasureTypes/cmeasurespraying.h"
+#include "Classes/MeasureTypes/cmeasureharvesting.h"
 #include "qdir.h"
 #pragma once
 
@@ -39,6 +44,7 @@ public:
     QString getRegNumber();
     std::vector<QString> getAllEssentialAttributes();
     QMap<QString, QString> getFieldData(int);
+    std::vector<CMeasure*> getMeasuresInRange(QDate from, QDate to, bool allFuture = false);
 
     //----- Setter -----
     void setLastCrop(CCrop*);

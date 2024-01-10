@@ -43,6 +43,7 @@ public:
     static QMap<QString, QStringList> getFarmData();
     static QString getDefaultLocale();
     static int getHarvestYearEnd();
+    static int getLoadYearsBefore();
     static int getNumberOfDataFiles(QString, QDir);
 
 

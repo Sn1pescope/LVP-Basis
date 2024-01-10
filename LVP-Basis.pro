@@ -22,6 +22,10 @@ SOURCES += \
         Classes/GUI/Dialogs/qworkunitdialog.cpp \
         Classes/GUI/Tools/qcropplantingplanningtool.cpp \
         Classes/GUI/qmain.cpp \
+        Classes/MeasureTypes/cmeasurefertilizing.cpp \
+        Classes/MeasureTypes/cmeasureharvesting.cpp \
+        Classes/MeasureTypes/cmeasureseeding.cpp \
+        Classes/MeasureTypes/cmeasurespraying.cpp \
         Classes/ccommunicator.cpp \
         Classes/ccrop.cpp \
         Classes/cdatamanager.cpp \
@@ -30,6 +34,7 @@ SOURCES += \
         Classes/cfilemanager.cpp \
         Classes/clanguagemanager.cpp \
         Classes/cmeasure.cpp \
+        Classes/MeasureTypes/cmeasurecultivating.cpp \
         Classes/csecuritymanager.cpp \
         Classes/cworkunit.cpp \
         main.cpp
@@ -52,6 +57,10 @@ HEADERS += \
     Classes/GUI/Dialogs/qworkunitdialog.h \
     Classes/GUI/Tools/qcropplantingplanningtool.h \
     Classes/GUI/qmain.h \
+    Classes/MeasureTypes/cmeasurefertilizing.h \
+    Classes/MeasureTypes/cmeasureharvesting.h \
+    Classes/MeasureTypes/cmeasureseeding.h \
+    Classes/MeasureTypes/cmeasurespraying.h \
     Classes/ccommunicator.h \
     Classes/ccrop.h \
     Classes/cdatamanager.h \
@@ -60,6 +69,7 @@ HEADERS += \
     Classes/cfilemanager.h \
     Classes/clanguagemanager.h \
     Classes/cmeasure.h \
+    Classes/MeasureTypes/cmeasurecultivating.h \
     Classes/csecuritymanager.h \
     Classes/cworkunit.h
 

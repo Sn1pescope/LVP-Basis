@@ -58,12 +58,14 @@ public:
     static CFarm* getFarm(QString);
     static CCrop* getCrop(QString);
     static int getHarvestYearEnd();
+    static int getLoadYearsBefore();
 
     //------------------ Setter -----------------------
 
     static void setFarmName(int, QString);
     static void setFarmName(QString, QString);
     static void setHarvestYearEnd(int to);
+    static void setLoadYearsBefore(int to);
 
 private:
     //------------------ Attributes ---------------------
@@ -74,9 +76,11 @@ private:
     static QString farmName;
     static QDir workDir;
     static int harvestYearEnd;
+    static int loadYearsBefore;
 
 public:
     static int STANDARD_HARVEST_YEAR_END;
+    static int STANDARD_LOAD_YEARS_BEFORE;
 };
 
 #endif // CDATAMANAGER_H

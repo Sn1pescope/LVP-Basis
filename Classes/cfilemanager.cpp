@@ -22,6 +22,7 @@
 #           key: inter          data: <InterCrop of this year>
 */
 
+#include "Classes/ccommunicator.h"
 #include "Classes/cdatamanager.h"
 #include "cfilemanager.h"
 
@@ -107,6 +108,9 @@ void CFileManager::writeConfFile(){
     //HarvestYearEnd
     int harvestYearEnd = CDataManager::getHarvestYearEnd();
 
+    //LoadYearsBefore
+    int loadYearsBefore = CDataManager::getLoadYearsBefore();
+
     //Write data in file
     QMap<QString, QString> data;
     if(!farmNames.isEmpty()){
@@ -114,6 +118,7 @@ void CFileManager::writeConfFile(){
     }
     data.insert(QString::fromStdString("defaultLocale"), currentLocale);
     data.insert(QString::fromStdString("harvestYearEnd"), QString::number(harvestYearEnd));
+    data.insert(QString::fromStdString("loadYearsBefore"), QString::number(loadYearsBefore));
 
 
     QDataStream out(&confFile);
@@ -239,7 +244,8 @@ QString CFileManager::writeFieldFiles(CField of, QDir workDir){
     }
 
     //Save last 5 years -> all longer ago isnt editable anymore
-    int year = QDate::currentDate().year();
+    int year = CCommunicator::getCurrentHarvestYearBegin().year();
+
     for(int i = 0; i < 5; i++){
         //Create a file -> Save data in it
         QFile fieldFile(workDir.filePath(of.getName() + "_%1" + ".lvpf").arg(year-i));
@@ -363,7 +369,7 @@ QMap<QString, QString> CFileManager::loadFieldData(QString name, int yearsBack, 
     QMap<QString, QString> data;
     workDir.setPath(workDir.path() + "/" + name);
     //Load special year
-    int year = QDate::currentDate().year();
+    int year = CCommunicator::getCurrentHarvestYearBegin().year();
     QFile fieldFile(workDir.filePath(name + "_%1" + ".lvpf").arg(year-yearsBack));
     if(fieldFile.open(QIODevice::ReadOnly)){
         QDataStream in(&fieldFile);
@@ -435,4 +441,11 @@ int CFileManager::getHarvestYearEnd(){
         return confData.value("harvestYearEnd").toInt();
     }
     return CDataManager::STANDARD_HARVEST_YEAR_END;
+}
+
+int CFileManager::getLoadYearsBefore(){
+    if(confData.contains("loadYearsBefore")){
+        return confData.value("loadYearsBefore").toInt();
+    }
+    return CDataManager::STANDARD_LOAD_YEARS_BEFORE;
 }

@@ -1,5 +1,6 @@
 #include "cfield.h"
 #include "Classes/cdatamanager.h"
+#include "Classes/ccommunicator.h"
 
 CField::CField(){
 
@@ -21,7 +22,15 @@ CField::CField(QString name_par, float size_par, QString regNumber_par, QString 
     interCropPlanted = interCropPlanted_par;
 
     //Load fieldData
-    for(int i = 0; i < CFileManager::getNumberOfDataFiles(name, work); i++){
+    int numPos = CFileManager::getNumberOfDataFiles(name, work);
+    int max = CDataManager::getLoadYearsBefore();
+    int toLoad;
+    if(numPos < max){
+        toLoad = numPos;
+    }else{
+        toLoad = max;
+    }
+    for(int i = 0; i < toLoad; i++){
         QMap<QString, QString> data = CFileManager::getFieldData(name, i, work);
 
         //Crops
@@ -38,10 +47,44 @@ CField::CField(QString name_par, float size_par, QString regNumber_par, QString 
             lastInterCrops[i] = CDataManager::getCrop(inter);
         }
 
-        //TODO: Get measures
+        //Get measures
+        if(data.contains("measures")){
+            QString valString = data.value("measures");
+            if(valString != "NULL"){
+                QStringList meas = valString.split(QLatin1Char(';'));
+                foreach(QString measure, meas){
+                    int type = measure.split(QLatin1Char(' ')).at(0).toInt();
+                    switch (type) {
+                    case 0:
+                        //Cultivating constructor
+                        measures.push_back(new CMeasureCultivating(measure));
+                        break;
+                    case 1:
+                        //Seeding constructor
+                        measures.push_back(new CMeasureSeeding(measure));
+                        break;
+                    case 2:
+                        //Fertilizing constructor
+                        measures.push_back(new CMeasureFertilizing(measure));
+                        break;
+                    case 3:
+                        //Spraying constructor
+                        measures.push_back(new CMeasureSpraying(measure));
+                        break;
+                    case 4:
+                        //Harvesting constructor
+                        measures.push_back(new CMeasureHarvesting(measure));
+                        break;
+                    default:
+                        break;
+                    }
+                }
+            }
+        }
 
         //More data...
     }
+    std::sort(measures.begin(), measures.end());
 }
 
 CField::CField(QString name_par, float size_par, QString regNumber_par, QString lastCrop1, QString lastCrop2, QString lastCrop3, QString lastCrop4, QString lastCrop5, QString lastInterCrop1, QString lastInterCrop2, QString lastInterCrop3, QString lastInterCrop4, QString lastInterCrop5, QString nextCrop, QString nextInterCrop, bool cropPlanted_par, bool interCropPlanted_par)
@@ -69,7 +112,7 @@ bool CField::usesCrop(QString name){
 
 void CField::addMeasure(CMeasure* measure){
     measures.push_back(measure);
-    //Sort after date
+    //Sort after date; earliest date first
     std::sort(measures.begin(), measures.end());
 }
 
@@ -144,7 +187,7 @@ std::vector<QString> CField::getAllEssentialAttributes(){
 QMap<QString, QString> CField::getFieldData(int yearsBack){
     QMap<QString, QString> data;
 
-    //Last Crops and interCrops: Can also be empty
+    //Last Crops and interCrops: Can also be empty -------------------------------
     QString crop;
     QString interCrop;
     if(getLastCrop(yearsBack) != 0){
@@ -160,11 +203,57 @@ QMap<QString, QString> CField::getFieldData(int yearsBack){
     data.insert(QString::fromStdString("crop"), crop);
     data.insert(QString::fromStdString("interCrop"), interCrop);
 
-    //TODO: Get measures for year
+    //Get measures for year -------------------------------------------------------
+    QDate begin = CCommunicator::getCurrentHarvestYearBegin();
+    //Substrate years back
+    begin = begin.addYears(-yearsBack);
+    std::vector<CMeasure*> meas = getMeasuresInRange(begin.addYears(-yearsBack), begin.addYears(1).addDays(-1), (yearsBack == 0));
+    QString measuresString = "";
+    for(int i = 0; i < (int)meas.size(); i++){
+        //Get its values and put it in saving form
+        if(i != 0){
+            measuresString += ";";
+        }
+        measuresString += meas.at(i)->getSavingData();
+    }
+    if(measuresString.isEmpty()){
+        measuresString = "NULL";
+    }
+    data.insert(QString::fromStdString("measures"), measuresString);
 
-    //More data...
+    //More data... ----------------------------------------------------------------
 
     return data;
+}
+
+std::vector<CMeasure*> CField::getMeasuresInRange(QDate from, QDate to, bool allFuture){
+    //Sort range
+    QDate first;
+    QDate last;
+    if(from > to){
+        first = to;
+        last = from;
+    }else{
+        first = from;
+        last = to;
+    }
+    std::vector<CMeasure*> ret;
+    for(int i = 0; i < (int)measures.size(); i++){
+        //Check if its already in range
+        if(measures.at(i)->getDate() < first){
+            continue;
+        }
+        if(!allFuture){
+            if(measures.at(i)->getDate() > last){
+                //Break
+                break;
+            }
+        }
+        //Put in vector and return
+        ret.push_back(measures.at(i));
+    }
+    std::sort(ret.begin(), ret.end());
+    return ret;
 }
 
 //---------------- Setter ----------------------

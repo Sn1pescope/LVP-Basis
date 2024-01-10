@@ -6,8 +6,10 @@ int CDataManager::activeFarm = -1;
 QString CDataManager::farmName;
 QDir CDataManager::workDir;
 int CDataManager::harvestYearEnd;
+int CDataManager::loadYearsBefore;
 //STANDARD VALUES
 int CDataManager::STANDARD_HARVEST_YEAR_END = 8;
+int CDataManager::STANDARD_LOAD_YEARS_BEFORE = 5;
 
 CDataManager::CDataManager()
 {
@@ -187,6 +189,9 @@ int CDataManager::getHarvestYearEnd(){
     return harvestYearEnd;
 }
 
+int CDataManager::getLoadYearsBefore(){
+    return loadYearsBefore;
+}
 
 //-------------------------- Setter ------------------------------------
 
@@ -204,5 +209,11 @@ void CDataManager::setFarmName(QString at, QString to){
 void CDataManager::setHarvestYearEnd(int to){
     if(to > 0 && to <= 12){
         harvestYearEnd = to;
+    }
+}
+
+void CDataManager::setLoadYearsBefore(int to){
+    if(to >= 5){
+        loadYearsBefore = to;
     }
 }

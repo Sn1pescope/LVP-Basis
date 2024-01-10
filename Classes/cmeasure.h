@@ -5,8 +5,12 @@
 class CMeasure
 {
 public:
-    CMeasure();
+    //For loading
+    CMeasure(QString);
+    //For generation
     CMeasure(int state, QDate date, int type);
+
+    virtual ~CMeasure();
     //States
     static const int STATE_PLANNED = 0;
     static const int STATE_IN_PROGRESS = 1;
@@ -26,9 +30,13 @@ public:
     QDate getDate();
     int getType();
 
+    QString getSavingData();
+
     bool operator<(CMeasure &rhs);
 
 private:
+    static const int NUM_ATTRIBUTES = 3;
+
     int state;
     QDate date;
     int type;

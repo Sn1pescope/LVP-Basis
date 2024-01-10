@@ -26,9 +26,8 @@ int main(int argc, char *argv[])
 
     //--------------------------- Space for planning ----------------------------------
 
-    //TODO: Measures system: Field can have done measures, and planned measures(measures saved as pointers in vector or array),
+    //TODO: !!! ATTENTION: ALL DATA OLDER THAN 5 YEARS CANT BE EDITED ANYMORE !!!
     //      state of field,
-    //      farm has overview over all planned measures, different types of measures
     //      -> need function to show data out of range too -> In Reports later
 
     //TODO: Calendar tool to plan measures

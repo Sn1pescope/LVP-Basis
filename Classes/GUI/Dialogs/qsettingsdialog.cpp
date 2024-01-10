@@ -18,6 +18,7 @@ QSettingsDialog::QSettingsDialog(QWidget* parent) :
     createFarmList();
 
     ui->cbHarvestYearEnd->setCurrentIndex(CDataManager::getHarvestYearEnd() - 1);
+    ui->spinBox->setValue(CDataManager::getLoadYearsBefore());
 
     //Autofill edit fields
     ui->editName->setValidator(new QRegExpValidator(CSecurityManager::LETTERS_SPACERS, ui->editName));
@@ -145,6 +146,7 @@ void QSettingsDialog::done(int res){
 
         //------------ General tab ----------------------------------
         CCommunicator::setHarvestYearEnd(ui->cbHarvestYearEnd->currentIndex() + 1);
+        CCommunicator::setLoadYearsBefore(ui->spinBox->value());
 
     }
     QDialog::done(res);

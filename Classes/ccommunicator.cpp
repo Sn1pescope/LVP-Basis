@@ -15,8 +15,10 @@ void CCommunicator::initialize(){
 
     //Configs
     CDataManager::loadCrops();
-    CDataManager::loadFarmNames();
     CDataManager::setHarvestYearEnd(CFileManager::getHarvestYearEnd());
+    CDataManager::setLoadYearsBefore(CFileManager::getLoadYearsBefore());
+
+    CDataManager::loadFarmNames();
 
     CLanguageManager::init();
 
@@ -135,4 +137,20 @@ QString CCommunicator::generateHarvestYearString(int yearsBack){
 
 void CCommunicator::setHarvestYearEnd(int month){
     CDataManager::setHarvestYearEnd(month);
+}
+
+void CCommunicator::setLoadYearsBefore(int to){
+    CDataManager::setLoadYearsBefore(to);
+}
+
+QDate CCommunicator::getCurrentHarvestYearBegin(){
+    QDate current = QDate::currentDate();
+    bool first = current.month() > CDataManager::getHarvestYearEnd();
+    if(first){
+        //1.MONTH.YEAR
+        return QDate(current.year(), CDataManager::getHarvestYearEnd(), 1);
+    }else{
+        //1.MONTH.YEAR-1
+        return QDate(current.year() - 1, CDataManager::getHarvestYearEnd(), 1);
+    }
 }

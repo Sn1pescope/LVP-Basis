@@ -41,8 +41,11 @@ public:
     static QString generateHarvestYearString(int yearsBack);
     static void setHarvestYearEnd(int);
     static void setLoadYearsBefore(int);
+    //Measures
+    static std::vector<CMeasure*> getMeasures(QString field = "", int state = -1, int type = -1, QDate date = QDate(), bool before = false);
 
     static QDate getCurrentHarvestYearBegin();
+
 };
 
 #endif // CCOMMUNICATOR_H

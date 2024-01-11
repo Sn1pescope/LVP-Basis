@@ -29,6 +29,8 @@ int main(int argc, char *argv[])
     //TODO: !!! ATTENTION: ALL DATA OLDER THAN 5 YEARS CANT BE EDITED ANYMORE !!!
     //      state of field,
     //      -> need function to show data out of range too -> In Reports later
+    //      Change vector<CMeasure*> to vector<QSharedPointer<CMeasure>> everywhere
+    //      Add sort combo box for measures list; sorted with QTableWidget::sort(column)
 
     //TODO: Calendar tool to plan measures
 

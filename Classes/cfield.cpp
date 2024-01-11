@@ -1,6 +1,7 @@
 #include "cfield.h"
 #include "Classes/cdatamanager.h"
 #include "Classes/ccommunicator.h"
+#include <unordered_set>
 
 CField::CField(){
 
@@ -253,6 +254,140 @@ std::vector<CMeasure*> CField::getMeasuresInRange(QDate from, QDate to, bool all
         ret.push_back(measures.at(i));
     }
     std::sort(ret.begin(), ret.end());
+    return ret;
+}
+
+std::vector<CMeasure*> CField::getMeasuresOfType(int type){
+    std::vector<CMeasure*> ret;
+    for(int i = 0; i < (int)measures.size(); i++){
+        if(measures.at(i)->getType() == type){
+            ret.push_back(measures.at(i));
+        }
+    }
+    return ret;
+}
+
+std::vector<CMeasure*> CField::getMeasuresOfState(int state){
+    std::vector<CMeasure*> ret;
+    for(int i = 0; i < (int)measures.size(); i++){
+        if(measures.at(i)->getState() == state){
+            ret.push_back(measures.at(i));
+        }
+    }
+    return ret;
+}
+
+std::vector<CMeasure*> CField::checkMeasureFilters(int state, int type, QDate date, bool before){
+    if(state == -1 && type == -1 && !date.isValid()){
+        return measures;
+    }
+
+    std::vector<CMeasure*> dateMeasures;
+    std::vector<CMeasure*> stateMeasures;
+    std::vector<CMeasure*> typeMeasures;
+    if(date.isValid()){
+        if(before){
+            dateMeasures = getMeasuresInRange(QDate::fromString("01.01.2000", "dd.MM.yyyy"), date);
+        }else{
+            dateMeasures = getMeasuresInRange(date, date, true);
+        }
+    }
+    if(state != -1){
+        stateMeasures = getMeasuresOfState(state);
+    }
+    if(type != -1){
+        typeMeasures = getMeasuresOfType(type);
+    }
+    std::unordered_set<CMeasure*> setDate(dateMeasures.begin(), dateMeasures.end());
+    std::unordered_set<CMeasure*> setState(stateMeasures.begin(), stateMeasures.end());
+    std::unordered_set<CMeasure*> setType(typeMeasures.begin(), typeMeasures.end());
+    std::vector<CMeasure*> ret;
+    for(CMeasure* m : measures){
+        if(!setDate.empty()){
+            //Has date filter
+            if(setDate.find(m) != setDate.end()){
+                //Is in date filter
+                if(!setState.empty()){
+                    //Has state filter
+                    if(setState.find(m) != setState.end()){
+                        //Is in state filter
+                        if(!setType.empty()){
+                            //Has type filter
+                            if(setType.find(m) != setType.end()){
+                                //is in type filter
+                                ret.push_back(m);
+                                continue;
+                            }else{
+                                //Not in type filter
+                                continue;
+                            }
+                        }else{
+                            //Has no type filter
+                            ret.push_back(m);
+                            continue;
+                        }
+                    }else{
+                        //Not in state filter
+                        continue;
+                    }
+                }else if(!setType.empty()){
+                    //Has type filter
+                    if(setType.find(m) != setType.end()){
+                        //Is in type filter
+                        ret.push_back(m);
+                        continue;
+                    }else{
+                        //Not in type
+                        continue;
+                    }
+                }else{
+                    //Has no state and type filter
+                    ret.push_back(m);
+                    continue;
+                }
+            }else{
+                //Not in date filter
+                continue;
+            }
+        }else if(!setState.empty()){
+            //Has state filter, no date filter
+            if(setState.find(m) != setState.end()){
+                //Is in state filter
+                if(!setType.empty()){
+                    //Has type filter
+                    if(setType.find(m) != setType.end()){
+                        //is in type filter
+                        ret.push_back(m);
+                        continue;
+                    }else{
+                        //Not in type filter
+                        continue;
+                    }
+                }else{
+                    //Has no type filter
+                    ret.push_back(m);
+                    continue;
+                }
+            }else{
+                //Not in state filter
+                continue;
+            }
+        }else if(!setType.empty()){
+            //Has type filter, no date and state filter
+            if(setType.find(m) != setType.end()){
+                //Is in type filter
+                ret.push_back(m);
+                continue;
+            }else{
+                //Not in filter
+                continue;
+            }
+        }else{
+            //Has no filter
+            ret = measures;
+            break;
+        }
+    }
     return ret;
 }
 

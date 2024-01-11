@@ -49,8 +49,17 @@ protected slots:
     void slotWelcomeBoxChanged(int index);
 
 private slots:
-    void cropPlanning();
+    //--------------- General -------------
+    void openSettings();
+    void save();
+    void eventLoopStarted();
 
+    //---------------- Tabs ---------------
+    void homeTab();
+    void cropPlanning();
+    void tasksTab();
+
+    //---------------- Home ---------------
     void updateMainScreenActive();
     void updateCurrentField();
 
@@ -62,11 +71,16 @@ private slots:
     void mergeFields();
     void setWorkUnit();
 
-    void openSettings();
-    void save();
-    void eventLoopStarted();
-
     void createFieldList();
+
+    //--------------- Tasks -----------------
+    void newMeasure();
+    void editMeasure();
+    void deleteMeasure();
+
+    void createMeasureList();
+    void updateTasksCbEntrys();
+    void updateCalendar(int);
 };
 
 #endif // QMAIN_H

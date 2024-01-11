@@ -1,5 +1,11 @@
 #include "cmeasure.h"
 
+const QMap<int, QString> CMeasure::STATES{{STATE_PLANNED, tr("Planned")},
+                                          {STATE_IN_PROGRESS, tr("In Progress")}, {STATE_DONE, tr("Done")}};
+const QMap<int, QString> CMeasure::TYPES{{TYPE_CULTIVATING, tr("Cultivating")}, {TYPE_SEEDING, tr("Seeding")},
+                                         {TYPE_FERTILIZING, tr("Fertilizing")}, {TYPE_SPRAYING, tr("Spraying")},
+                                         {TYPE_HARVESTING, tr("Harvesting")}};
+
 CMeasure::CMeasure(QString savingString)
 {
     QStringList l = savingString.split(QLatin1Char(' '));

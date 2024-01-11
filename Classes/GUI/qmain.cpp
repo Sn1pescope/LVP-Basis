@@ -220,6 +220,79 @@ void QMain::save(){
     CCommunicator::saveData();
 }
 
+void QMain::homeTab(){
+    ui->mainScreen->setCurrentIndex(0);
+}
+
+void QMain::tasksTab(){
+    ui->mainScreen->setCurrentIndex(1);
+    updateTasksCbEntrys();
+}
+
+//-------------------------------- Tasks -----------------------------------------------------
+
+void QMain::newMeasure(){
+    //TODO: Create new measure
+}
+
+void QMain::editMeasure(){
+    //TODO: Edit selected measure
+}
+
+void QMain::deleteMeasure(){
+    //TODO: Delete selected measure
+}
+
+void QMain::createMeasureList(){
+    //TODO: Create measure list; get measures with following command: (insert filters as parameters)
+    std::vector<CMeasure*> measures = CCommunicator::getMeasures();
+}
+
+void QMain::updateTasksCbEntrys(){
+    //Tab is called -> Update cb entrys, set standard filters, createList
+    //Filter States
+    ui->cbFilterStates->clear();
+    ui->cbFilterStates->addItem("");
+    QMap<int, QString> states = CMeasure::STATES;
+    QList<int> keys = states.keys();
+    foreach(int key, keys){
+        ui->cbFilterStates->insertItem(key+1, states.value(key));
+    }
+    ui->cbFilterStates->setCurrentIndex(0);
+
+    //Filter Date
+    ui->cbFilterDate->setCurrentIndex(1); //Set to after
+    ui->deFilterDate->setDate(QDate::currentDate());
+
+    //Filter field
+    ui->cbFilterField->clear();
+    ui->cbFilterField->addItem("");
+    std::vector<QString> fields = CDataManager::getCurrentFarm()->getAllFieldNames();
+    foreach(QString name, fields){
+        ui->cbFilterField->addItem(name);
+    }
+    if(ui->listFields->currentItem() != nullptr && ui->listFields->currentItem()->childCount() == 0){
+        QString name = ui->listFields->currentItem()->text(0);
+        ui->cbFilterField->setCurrentText(name);
+    }
+
+    //Filter Type
+    ui->cbFilterType->clear();
+    ui->cbFilterType->addItem("");
+    QMap<int, QString> types = CMeasure::TYPES;
+    QList<int> typeKeys = types.keys();
+    foreach(int key, typeKeys){
+        ui->cbFilterType->insertItem(key+1, types.value(key));
+    }
+    ui->cbFilterType->setCurrentIndex(0);
+    createMeasureList();
+}
+
+void QMain::updateCalendar(int currentIndex){
+    if(currentIndex == 1){
+        //TODO: Update calendar
+    }
+}
 
 //--------------------------------- Events ---------------------------------------------------
 

@@ -39,6 +39,30 @@ void CCommunicator::saveData(){
 }
 
 
+//------------------- Measures ---------------------------
+
+std::vector<CMeasure*> CCommunicator::getMeasures(QString field, int state, int type, QDate date, bool before){
+    std::vector<CField> fields = CDataManager::getCurrentFarm()->getAllFields();
+    std::vector<CMeasure*> measures;
+    //Get all measures
+    if(field.isEmpty()){
+        //Go over all fields
+        foreach(CField f, fields){
+            std::vector<CMeasure*> r = f.checkMeasureFilters(state, type, date, before);
+            measures.insert(measures.end(), r.begin(), r.end());
+        }
+    }else{
+        //Just search specific field
+        auto it = std::find(fields.begin(), fields.end(), CField(field));
+        if(it != fields.end()){
+            //Found
+            measures = fields.at(it - fields.begin()).checkMeasureFilters(state, type, date, before);
+        }
+    }
+    return measures;
+}
+
+
 //------------------ Farms --------------------------------
 
 void CCommunicator::createNewFarm(QString name){

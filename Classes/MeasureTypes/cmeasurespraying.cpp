@@ -1,6 +1,6 @@
 #include "cmeasurespraying.h"
 
-CMeasureSpraying::CMeasureSpraying(QString val) : CMeasure(val)
+CMeasureSpraying::CMeasureSpraying(QString field, QString val) : CMeasure(field, val)
 {
     //Split string and start at value NUM_ATTRIBUTES
 }

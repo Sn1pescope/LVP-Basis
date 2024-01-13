@@ -7,7 +7,7 @@
 class CMeasureCultivating : public CMeasure
 {
 public:
-    CMeasureCultivating(QString);
+    CMeasureCultivating(QString, QString);
 };
 
 #endif // CMEASURECULTIVATING_H

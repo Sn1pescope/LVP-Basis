@@ -6,7 +6,7 @@
 class CMeasureFertilizing : public CMeasure
 {
 public:
-    CMeasureFertilizing(QString);
+    CMeasureFertilizing(QString, QString);
 };
 
 #endif // CMEASUREFERTILIZING_H

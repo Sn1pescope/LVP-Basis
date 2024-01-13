@@ -9,9 +9,9 @@ class CMeasure
     Q_DECLARE_TR_FUNCTIONS(CMeasure)
 public:
     //For loading
-    CMeasure(QString);
+    CMeasure(QString, QString);
     //For generation
-    CMeasure(int state, QDate date, int type);
+    CMeasure(QString, int state, QDate date, int type);
 
     virtual ~CMeasure();
     //States
@@ -34,6 +34,7 @@ public:
     int getState();
     QDate getDate();
     int getType();
+    QString getField();
 
     QString getSavingData();
 
@@ -42,6 +43,7 @@ public:
 private:
     static const int NUM_ATTRIBUTES = 3;
 
+    QString field;
     int state;
     QDate date;
     int type;

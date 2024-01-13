@@ -81,6 +81,8 @@ private slots:
     void createMeasureList();
     void updateTasksCbEntrys();
     void updateCalendar(int);
+    void sortMeasureList();
+    void sortMeasureList(int);
 };
 
 #endif // QMAIN_H

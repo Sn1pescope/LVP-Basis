@@ -6,7 +6,7 @@
 class CMeasureSpraying : public CMeasure
 {
 public:
-    CMeasureSpraying(QString);
+    CMeasureSpraying(QString, QString);
 };
 
 #endif // CMEASURESPRAYING_H

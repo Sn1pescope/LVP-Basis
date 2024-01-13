@@ -41,14 +41,14 @@ void CCommunicator::saveData(){
 
 //------------------- Measures ---------------------------
 
-std::vector<CMeasure*> CCommunicator::getMeasures(QString field, int state, int type, QDate date, bool before){
+std::vector<QSharedPointer<CMeasure>> CCommunicator::getMeasures(QString field, int state, int type, QDate date, bool before){
     std::vector<CField> fields = CDataManager::getCurrentFarm()->getAllFields();
-    std::vector<CMeasure*> measures;
+    std::vector<QSharedPointer<CMeasure>> measures;
     //Get all measures
     if(field.isEmpty()){
         //Go over all fields
         foreach(CField f, fields){
-            std::vector<CMeasure*> r = f.checkMeasureFilters(state, type, date, before);
+            std::vector<QSharedPointer<CMeasure>> r = f.checkMeasureFilters(state, type, date, before);
             measures.insert(measures.end(), r.begin(), r.end());
         }
     }else{

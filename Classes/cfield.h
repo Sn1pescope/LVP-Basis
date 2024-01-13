@@ -29,7 +29,7 @@ public:
     //------------ Methods ------------------------
     bool usesCrop(QString name);
 
-    void addMeasure(CMeasure*);
+    void addMeasure(QSharedPointer<CMeasure>);
     void removeMeasure(int);
 
     //----- Getter -----
@@ -44,8 +44,8 @@ public:
     QString getRegNumber();
     std::vector<QString> getAllEssentialAttributes();
     QMap<QString, QString> getFieldData(int);
-    std::vector<CMeasure*> getMeasuresInRange(QDate from, QDate to, bool allFuture = false);
-    std::vector<CMeasure*> checkMeasureFilters(int state, int type, QDate date, bool before);
+    std::vector<QSharedPointer<CMeasure>> getMeasuresInRange(QDate from, QDate to, bool allFuture = false);
+    std::vector<QSharedPointer<CMeasure>> checkMeasureFilters(int state, int type, QDate date, bool before);
 
     //----- Setter -----
     void setLastCrop(CCrop*);
@@ -62,8 +62,8 @@ public:
     void setAllParameters(QString name_par, float size_par, QString regNumber_par, QString lastCrop1, QString lastCrop2, QString lastCrop3, QString lastCrop4, QString lastCrop5, QString lastInterCrop1, QString lastInterCrop2, QString lastInterCrop3, QString lastInterCrop4, QString lastInterCrop5, QString nextCrop, QString nextInterCrop, bool cropPlanted, bool interCropPlanted);
 
 private:
-    std::vector<CMeasure*> getMeasuresOfType(int type);
-    std::vector<CMeasure*> getMeasuresOfState(int state);
+    std::vector<QSharedPointer<CMeasure>> getMeasuresOfType(int type);
+    std::vector<QSharedPointer<CMeasure>> getMeasuresOfState(int state);
 
 private:
     QString name;
@@ -75,7 +75,7 @@ private:
     CCrop* nextInterCrop;
     bool interCropPlanted;
     bool cropPlanted;
-    std::vector<CMeasure*> measures;
+    std::vector<QSharedPointer<CMeasure>> measures;
 
 };
 

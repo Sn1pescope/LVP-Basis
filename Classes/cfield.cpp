@@ -58,23 +58,23 @@ CField::CField(QString name_par, float size_par, QString regNumber_par, QString 
                     switch (type) {
                     case 0:
                         //Cultivating constructor
-                        measures.push_back(new CMeasureCultivating(measure));
+                        measures.push_back(QSharedPointer<CMeasure>(new CMeasureCultivating(name, measure)));
                         break;
                     case 1:
                         //Seeding constructor
-                        measures.push_back(new CMeasureSeeding(measure));
+                        measures.push_back(QSharedPointer<CMeasure>(new CMeasureSeeding(name, measure)));
                         break;
                     case 2:
                         //Fertilizing constructor
-                        measures.push_back(new CMeasureFertilizing(measure));
+                        measures.push_back(QSharedPointer<CMeasure>(new CMeasureFertilizing(name, measure)));
                         break;
                     case 3:
                         //Spraying constructor
-                        measures.push_back(new CMeasureSpraying(measure));
+                        measures.push_back(QSharedPointer<CMeasure>(new CMeasureSpraying(name, measure)));
                         break;
                     case 4:
                         //Harvesting constructor
-                        measures.push_back(new CMeasureHarvesting(measure));
+                        measures.push_back(QSharedPointer<CMeasure>(new CMeasureHarvesting(name, measure)));
                         break;
                     default:
                         break;
@@ -111,14 +111,13 @@ bool CField::usesCrop(QString name){
     return false;
 }
 
-void CField::addMeasure(CMeasure* measure){
+void CField::addMeasure(QSharedPointer<CMeasure> measure){
     measures.push_back(measure);
     //Sort after date; earliest date first
     std::sort(measures.begin(), measures.end());
 }
 
 void CField::removeMeasure(int at){
-    delete measures.at(at);
     measures.erase(measures.begin() + at);
 }
 
@@ -208,7 +207,7 @@ QMap<QString, QString> CField::getFieldData(int yearsBack){
     QDate begin = CCommunicator::getCurrentHarvestYearBegin();
     //Substrate years back
     begin = begin.addYears(-yearsBack);
-    std::vector<CMeasure*> meas = getMeasuresInRange(begin.addYears(-yearsBack), begin.addYears(1).addDays(-1), (yearsBack == 0));
+    std::vector<QSharedPointer<CMeasure>> meas = getMeasuresInRange(begin.addYears(-yearsBack), begin.addYears(1).addDays(-1), (yearsBack == 0));
     QString measuresString = "";
     for(int i = 0; i < (int)meas.size(); i++){
         //Get its values and put it in saving form
@@ -227,7 +226,7 @@ QMap<QString, QString> CField::getFieldData(int yearsBack){
     return data;
 }
 
-std::vector<CMeasure*> CField::getMeasuresInRange(QDate from, QDate to, bool allFuture){
+std::vector<QSharedPointer<CMeasure>> CField::getMeasuresInRange(QDate from, QDate to, bool allFuture){
     //Sort range
     QDate first;
     QDate last;
@@ -238,7 +237,7 @@ std::vector<CMeasure*> CField::getMeasuresInRange(QDate from, QDate to, bool all
         first = from;
         last = to;
     }
-    std::vector<CMeasure*> ret;
+    std::vector<QSharedPointer<CMeasure>> ret;
     for(int i = 0; i < (int)measures.size(); i++){
         //Check if its already in range
         if(measures.at(i)->getDate() < first){
@@ -257,8 +256,8 @@ std::vector<CMeasure*> CField::getMeasuresInRange(QDate from, QDate to, bool all
     return ret;
 }
 
-std::vector<CMeasure*> CField::getMeasuresOfType(int type){
-    std::vector<CMeasure*> ret;
+std::vector<QSharedPointer<CMeasure>> CField::getMeasuresOfType(int type){
+    std::vector<QSharedPointer<CMeasure>> ret;
     for(int i = 0; i < (int)measures.size(); i++){
         if(measures.at(i)->getType() == type){
             ret.push_back(measures.at(i));
@@ -267,8 +266,8 @@ std::vector<CMeasure*> CField::getMeasuresOfType(int type){
     return ret;
 }
 
-std::vector<CMeasure*> CField::getMeasuresOfState(int state){
-    std::vector<CMeasure*> ret;
+std::vector<QSharedPointer<CMeasure>> CField::getMeasuresOfState(int state){
+    std::vector<QSharedPointer<CMeasure>> ret;
     for(int i = 0; i < (int)measures.size(); i++){
         if(measures.at(i)->getState() == state){
             ret.push_back(measures.at(i));
@@ -277,43 +276,45 @@ std::vector<CMeasure*> CField::getMeasuresOfState(int state){
     return ret;
 }
 
-std::vector<CMeasure*> CField::checkMeasureFilters(int state, int type, QDate date, bool before){
+std::vector<QSharedPointer<CMeasure>> CField::checkMeasureFilters(int state, int type, QDate date, bool before){
     if(state == -1 && type == -1 && !date.isValid()){
         return measures;
     }
 
-    std::vector<CMeasure*> dateMeasures;
-    std::vector<CMeasure*> stateMeasures;
-    std::vector<CMeasure*> typeMeasures;
-    if(date.isValid()){
+    bool dateFilter = date.isValid();
+    bool stateFilter = state != -1;
+    bool typeFilter = type != -1;
+
+    std::vector<QSharedPointer<CMeasure>> dateMeasures;
+    std::vector<QSharedPointer<CMeasure>> stateMeasures;
+    std::vector<QSharedPointer<CMeasure>> typeMeasures;
+    if(dateFilter){
         if(before){
             dateMeasures = getMeasuresInRange(QDate::fromString("01.01.2000", "dd.MM.yyyy"), date);
         }else{
             dateMeasures = getMeasuresInRange(date, date, true);
         }
     }
-    if(state != -1){
+    if(stateFilter){
         stateMeasures = getMeasuresOfState(state);
     }
-    if(type != -1){
+    if(typeFilter){
         typeMeasures = getMeasuresOfType(type);
     }
-    std::unordered_set<CMeasure*> setDate(dateMeasures.begin(), dateMeasures.end());
-    std::unordered_set<CMeasure*> setState(stateMeasures.begin(), stateMeasures.end());
-    std::unordered_set<CMeasure*> setType(typeMeasures.begin(), typeMeasures.end());
-    std::vector<CMeasure*> ret;
-    for(CMeasure* m : measures){
-        if(!setDate.empty()){
+
+    std::vector<QSharedPointer<CMeasure>> ret;
+    for(QSharedPointer<CMeasure> m : measures){
+        if(dateFilter){
             //Has date filter
-            if(setDate.find(m) != setDate.end()){
+            if(std::find(dateMeasures.begin(), dateMeasures.end(), m) != dateMeasures.end()){
                 //Is in date filter
-                if(!setState.empty()){
+                if(stateFilter){
                     //Has state filter
-                    if(setState.find(m) != setState.end()){
+                    if(std::find(stateMeasures.begin(), stateMeasures.end(), m) != stateMeasures.end()){
                         //Is in state filter
-                        if(!setType.empty()){
+                        if(typeFilter){
                             //Has type filter
-                            if(setType.find(m) != setType.end()){
+                            if(std::find(typeMeasures.begin(), typeMeasures.end(), m) != typeMeasures.end()){
                                 //is in type filter
                                 ret.push_back(m);
                                 continue;
@@ -330,9 +331,9 @@ std::vector<CMeasure*> CField::checkMeasureFilters(int state, int type, QDate da
                         //Not in state filter
                         continue;
                     }
-                }else if(!setType.empty()){
+                }else if(typeFilter){
                     //Has type filter
-                    if(setType.find(m) != setType.end()){
+                    if(std::find(typeMeasures.begin(), typeMeasures.end(), m) != typeMeasures.end()){
                         //Is in type filter
                         ret.push_back(m);
                         continue;
@@ -349,13 +350,13 @@ std::vector<CMeasure*> CField::checkMeasureFilters(int state, int type, QDate da
                 //Not in date filter
                 continue;
             }
-        }else if(!setState.empty()){
+        }else if(stateFilter){
             //Has state filter, no date filter
-            if(setState.find(m) != setState.end()){
+            if(std::find(stateMeasures.begin(), stateMeasures.end(), m) != stateMeasures.end()){
                 //Is in state filter
-                if(!setType.empty()){
+                if(typeFilter){
                     //Has type filter
-                    if(setType.find(m) != setType.end()){
+                    if(std::find(typeMeasures.begin(), typeMeasures.end(), m) != typeMeasures.end()){
                         //is in type filter
                         ret.push_back(m);
                         continue;
@@ -372,9 +373,9 @@ std::vector<CMeasure*> CField::checkMeasureFilters(int state, int type, QDate da
                 //Not in state filter
                 continue;
             }
-        }else if(!setType.empty()){
+        }else if(typeFilter){
             //Has type filter, no date and state filter
-            if(setType.find(m) != setType.end()){
+            if(std::find(typeMeasures.begin(), typeMeasures.end(), m) != typeMeasures.end()){
                 //Is in type filter
                 ret.push_back(m);
                 continue;

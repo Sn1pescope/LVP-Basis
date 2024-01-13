@@ -35,6 +35,7 @@ void QMain::eventLoopStarted(){
     //Show main window
     updateMainScreenActive();
     this->setWindowState(Qt::WindowMaximized);
+    ui->mainScreen->tabBar()->setVisible(false);
     this->show();
     QWarningDialog(this, tr("Information"), tr("Current activated farm: %1\n"
                                                "You can change the current farm with 'Settings' -> 'Farm'.").arg(CDataManager::getCurrentFarmName()), true, false).exec();
@@ -244,12 +245,49 @@ void QMain::deleteMeasure(){
 }
 
 void QMain::createMeasureList(){
-    //TODO: Create measure list; get measures with following command: (insert filters as parameters)
-    std::vector<CMeasure*> measures = CCommunicator::getMeasures();
+    //Create measure list
+    QString field = ui->cbFilterField->currentText();
+    int state = ui->cbFilterStates->currentIndex() - 1;
+    int type = ui->cbFilterType->currentIndex() - 1;
+    QDate date = ui->deFilterDate->date();
+    bool before = !ui->cbFilterDate->currentIndex();
+    std::vector<QSharedPointer<CMeasure>> measures = CCommunicator::getMeasures(field, state, type, date, before);
+    ui->listMeasures->setRowCount(measures.size());
+
+    for(int i = 0; i < (int)measures.size(); i++) {
+        QSharedPointer<CMeasure> measure = measures.at(i);
+        ui->listMeasures->setItem(i, 0, new QTableWidgetItem(CMeasure::STATES.value(measure->getState())));
+        ui->listMeasures->setItem(i, 1, new QTableWidgetItem(measure->getDate().toString("dd.MM.yyyy")));
+        ui->listMeasures->setItem(i, 2, new QTableWidgetItem(measure->getField()));
+        ui->listMeasures->setItem(i, 3, new QTableWidgetItem(CMeasure::TYPES.value(measure->getType())));
+    }
+
+    sortMeasureList();
+}
+
+void QMain::sortMeasureList(){
+    sortMeasureList(ui->cbSortMeasureList->currentIndex());
+}
+
+void QMain::sortMeasureList(int index){
+    Qt::SortOrder order;
+    if(ui->radioButton->isChecked()){
+        order = Qt::AscendingOrder;
+    }else{
+        order = Qt::DescendingOrder;
+    }
+    ui->listMeasures->sortItems(index, order);
 }
 
 void QMain::updateTasksCbEntrys(){
     //Tab is called -> Update cb entrys, set standard filters, createList
+    //Sort cb
+    ui->cbSortMeasureList->clear();
+    for(int i = 0; i < ui->listMeasures->columnCount(); i++){
+        ui->cbSortMeasureList->insertItem(i, ui->listMeasures->horizontalHeaderItem(i)->text());
+    }
+    ui->cbSortMeasureList->setCurrentIndex(1); //Standard = Date
+
     //Filter States
     ui->cbFilterStates->clear();
     ui->cbFilterStates->addItem("");

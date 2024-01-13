@@ -6,7 +6,7 @@
 class CMeasureHarvesting : public CMeasure
 {
 public:
-    CMeasureHarvesting(QString);
+    CMeasureHarvesting(QString, QString);
 };
 
 #endif // CMEASUREHARVESTING_H

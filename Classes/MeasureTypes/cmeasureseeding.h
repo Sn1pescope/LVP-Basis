@@ -6,7 +6,7 @@
 class CMeasureSeeding : public CMeasure
 {
 public:
-    CMeasureSeeding(QString);
+    CMeasureSeeding(QString, QString);
 };
 
 #endif // CMEASURESEEDING_H

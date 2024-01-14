@@ -4,10 +4,19 @@
 #include "qcoreapplication.h"
 #include "qdatetime.h"
 #include <QMap>
-class CMeasure
+#include <QSharedPointer>
+#include <QObject>
+class CMeasure : public QObject
 {
-    Q_DECLARE_TR_FUNCTIONS(CMeasure)
+    Q_OBJECT
+
 public:
+    static CMeasure& instance(){
+        static CMeasure m_instance;
+        return m_instance;
+    }
+    CMeasure();
+
     //For loading
     CMeasure(QString, QString);
     //For generation
@@ -30,23 +39,37 @@ public:
     void setState(int);
     void setDate(QDate);
     void setType(int);
+    void setField(QString);
 
     int getState();
     QDate getDate();
     int getType();
     QString getField();
+    QString getKey();
 
     QString getSavingData();
 
     bool operator<(CMeasure &rhs);
+    bool operator==(CMeasure &rhs);
+
+    static bool greater(QSharedPointer<CMeasure> th, QSharedPointer<CMeasure> rhs);
+
+public slots:
+    static void shutdown();
+
+private:
+    void generateKey();
 
 private:
     static const int NUM_ATTRIBUTES = 3;
+    static std::vector<QString> keys;
 
     QString field;
     int state;
     QDate date;
     int type;
+    QString key;
+    static bool shut;
 };
 
 #endif // CMEASURE_H

@@ -10,6 +10,7 @@ QMAKE_LFLAGS += -static-libgcc
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        Classes/GUI/Dialogs/qcreateeditmeasure.cpp \
         Classes/GUI/Dialogs/qcreatefarm.cpp \
         Classes/GUI/Dialogs/qcreatefield.cpp \
         Classes/GUI/Dialogs/qeditcrop.cpp \
@@ -20,6 +21,7 @@ SOURCES += \
         Classes/GUI/Dialogs/qwarningdialog.cpp \
         Classes/GUI/Dialogs/qwelcome.cpp \
         Classes/GUI/Dialogs/qworkunitdialog.cpp \
+        Classes/GUI/Overwritten/qmeasurescalendarview.cpp \
         Classes/GUI/Tools/qcropplantingplanningtool.cpp \
         Classes/GUI/qmain.cpp \
         Classes/MeasureTypes/cmeasurefertilizing.cpp \
@@ -45,6 +47,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    Classes/GUI/Dialogs/qcreateeditmeasure.h \
     Classes/GUI/Dialogs/qcreatefarm.h \
     Classes/GUI/Dialogs/qcreatefield.h \
     Classes/GUI/Dialogs/qeditcrop.h \
@@ -55,6 +58,7 @@ HEADERS += \
     Classes/GUI/Dialogs/qwarningdialog.h \
     Classes/GUI/Dialogs/qwelcome.h \
     Classes/GUI/Dialogs/qworkunitdialog.h \
+    Classes/GUI/Overwritten/qmeasurescalendarview.h \
     Classes/GUI/Tools/qcropplantingplanningtool.h \
     Classes/GUI/qmain.h \
     Classes/MeasureTypes/cmeasurefertilizing.h \
@@ -74,6 +78,7 @@ HEADERS += \
     Classes/cworkunit.h
 
 FORMS += \
+    Classes/GUI/Dialogs/qcreateeditmeasure.ui \
     Classes/GUI/Dialogs/qcreatefarm.ui \
     Classes/GUI/Dialogs/qcreatefield.ui \
     Classes/GUI/Dialogs/qeditcrop.ui \

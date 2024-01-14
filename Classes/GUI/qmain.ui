@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>840</width>
-    <height>628</height>
+    <width>855</width>
+    <height>634</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -670,6 +670,9 @@
             </item>
             <item>
              <widget class="QTableWidget" name="listMeasures">
+              <property name="enabled">
+               <bool>true</bool>
+              </property>
               <property name="editTriggers">
                <set>QAbstractItemView::NoEditTriggers</set>
               </property>
@@ -699,6 +702,11 @@
                 <string>Type</string>
                </property>
               </column>
+              <column>
+               <property name="text">
+                <string notr="true">Key</string>
+               </property>
+              </column>
              </widget>
             </item>
            </layout>
@@ -707,6 +715,49 @@
            <attribute name="title">
             <string>Calendar View</string>
            </attribute>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <item>
+             <widget class="QMeasuresCalendarView" name="calendarWidget"/>
+            </item>
+            <item>
+             <widget class="QTableWidget" name="listCalendar">
+              <property name="editTriggers">
+               <set>QAbstractItemView::NoEditTriggers</set>
+              </property>
+              <property name="selectionMode">
+               <enum>QAbstractItemView::SingleSelection</enum>
+              </property>
+              <property name="selectionBehavior">
+               <enum>QAbstractItemView::SelectRows</enum>
+              </property>
+              <column>
+               <property name="text">
+                <string>State</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Date</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Field</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Type</string>
+               </property>
+              </column>
+              <column>
+               <property name="text">
+                <string>Key</string>
+               </property>
+              </column>
+             </widget>
+            </item>
+           </layout>
           </widget>
          </widget>
         </item>
@@ -717,6 +768,13 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QMeasuresCalendarView</class>
+   <extends>QCalendarWidget</extends>
+   <header>Classes/GUI/Overwritten/qmeasurescalendarview.h</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections>
   <connection>
@@ -1039,6 +1097,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>calendarWidget</sender>
+   <signal>selectionChanged()</signal>
+   <receiver>QMain</receiver>
+   <slot>updateCalendarList()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>419</x>
+     <y>358</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>419</x>
+     <y>313</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openSettings()</slot>
@@ -1061,6 +1135,7 @@
   <slot>updateCalendar(int)</slot>
   <slot>sortMeasureList(int)</slot>
   <slot>sortMeasureList()</slot>
+  <slot>updateCalendarList()</slot>
  </slots>
  <buttongroups>
   <buttongroup name="buttonGroup"/>

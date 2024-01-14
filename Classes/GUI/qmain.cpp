@@ -2,6 +2,7 @@
 #include "Classes/GUI/Dialogs/qworkunitdialog.h"
 #include "ui_qmain.h"
 #include <Classes/GUI/Tools/qcropplantingplanningtool.h>
+#include <Classes/GUI/Dialogs/qcreateeditmeasure.h>
 
 QMain::QMain(QWidget *parent) : QMainWindow(parent), ui(new Ui::QMain)
 {
@@ -10,6 +11,7 @@ QMain::QMain(QWidget *parent) : QMainWindow(parent), ui(new Ui::QMain)
     connect(&CDataManager::instance(), &CDataManager::currentFarmChanged, this, &QMain::createFieldList);
     connect(ui->listFields, &QTreeWidget::itemDoubleClicked, this, &QMain::editField);
     connect(ui->listFields, &QTreeWidget::currentItemChanged, this, &QMain::updateCurrentField);
+    connect(this, &QMain::shutdown, &CMeasure::instance(), &CMeasure::shutdown);
     lbls[0]=ui->lbl_HarvestYear1;lbls[1]=ui->lbl_HarvestYear2;lbls[2]=ui->lbl_HarvestYear3;lbls[3]=ui->lbl_HarvestYear4;lbls[4]=ui->lbl_HarvestYear5;
     lbls[5]=ui->lbl_Crop1;lbls[6]=ui->lbl_Crop2;lbls[7]=ui->lbl_Crop3;lbls[8]=ui->lbl_Crop4;lbls[9]=ui->lbl_Crop5;
     lbls[10]=ui->lbl_InterCrop1;lbls[11]=ui->lbl_InterCrop2;lbls[12]=ui->lbl_InterCrop3;lbls[13]=ui->lbl_InterCrop4;lbls[14]=ui->lbl_InterCrop5;
@@ -233,18 +235,44 @@ void QMain::tasksTab(){
 //-------------------------------- Tasks -----------------------------------------------------
 
 void QMain::newMeasure(){
-    //TODO: Create new measure
+    //Create new measure
+    QCreateEditMeasure(this, true).exec();
+    updateTasksCbEntrys();
 }
 
 void QMain::editMeasure(){
-    //TODO: Edit selected measure
+    //Edit selected measure
+    if(!ui->listMeasures->selectedItems().empty()){
+        int row = ui->listMeasures->selectedItems().at(0)->row();
+
+        QString f = ui->listMeasures->item(row, 2)->text();
+        QString key = ui->listMeasures->item(row, 4)->text();
+
+        QSharedPointer<CMeasure> meas = CDataManager::getCurrentFarm()->getField(f)->getMeasure(key);
+        QCreateEditMeasure(this, meas).exec();
+        ui->listMeasures->item(row, 0)->setText(CMeasure::STATES.value(meas->getState()));
+        ui->listMeasures->item(row, 1)->setText(meas->getDate().toString("dd.MM.yyyy"));
+        ui->listMeasures->item(row, 2)->setText(meas->getField());
+        ui->listMeasures->item(row, 3)->setText(CMeasure::TYPES.value(meas->getType()));
+        ui->listMeasures->item(row, 4)->setText(meas->getKey());
+    }
 }
 
 void QMain::deleteMeasure(){
     //TODO: Delete selected measure
+    if(!ui->listMeasures->selectedItems().empty()){
+        int row = ui->listMeasures->selectedItems().at(0)->row();
+
+        CField* field = CDataManager::getCurrentFarm()->getField(ui->listMeasures->item(row, 2)->text());
+        QString key = ui->listMeasures->item(row, 4)->text();
+        field->removeMeasure(key);
+        updateTasksCbEntrys();
+    }
 }
 
 void QMain::createMeasureList(){
+    ui->listMeasures->hideColumn(4);
+    ui->listCalendar->hideColumn(4);
     //Create measure list
     QString field = ui->cbFilterField->currentText();
     int state = ui->cbFilterStates->currentIndex() - 1;
@@ -260,6 +288,7 @@ void QMain::createMeasureList(){
         ui->listMeasures->setItem(i, 1, new QTableWidgetItem(measure->getDate().toString("dd.MM.yyyy")));
         ui->listMeasures->setItem(i, 2, new QTableWidgetItem(measure->getField()));
         ui->listMeasures->setItem(i, 3, new QTableWidgetItem(CMeasure::TYPES.value(measure->getType())));
+        ui->listMeasures->setItem(i, 4, new QTableWidgetItem(measure->getKey()));
     }
 
     sortMeasureList();
@@ -328,7 +357,24 @@ void QMain::updateTasksCbEntrys(){
 
 void QMain::updateCalendar(int currentIndex){
     if(currentIndex == 1){
-        //TODO: Update calendar
+        //Update calendar
+        ui->calendarWidget->updateMeasures(CCommunicator::getMeasures());
+        updateCalendarList();
+    }
+}
+
+void QMain::updateCalendarList(){
+    QDate date = ui->calendarWidget->selectedDate();
+    std::vector<QSharedPointer<CMeasure>> measures = CCommunicator::getMeasures("", -1, -1, date, true, true);
+    ui->listCalendar->setRowCount(measures.size());
+
+    for(int i = 0; i < (int)measures.size(); i++) {
+        QSharedPointer<CMeasure> measure = measures.at(i);
+        ui->listCalendar->setItem(i, 0, new QTableWidgetItem(CMeasure::STATES.value(measure->getState())));
+        ui->listCalendar->setItem(i, 1, new QTableWidgetItem(measure->getDate().toString("dd.MM.yyyy")));
+        ui->listCalendar->setItem(i, 2, new QTableWidgetItem(measure->getField()));
+        ui->listCalendar->setItem(i, 3, new QTableWidgetItem(CMeasure::TYPES.value(measure->getType())));
+        ui->listCalendar->setItem(i, 4, new QTableWidgetItem(measure->getKey()));
     }
 }
 
@@ -340,6 +386,7 @@ void QMain::closeEvent(QCloseEvent* ev){
     if(dialog.exec()){
         //Save and exit
         save();
+        emit shutdown();
         ev->accept();
     }else{
         //Ignore signal

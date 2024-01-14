@@ -30,7 +30,7 @@ public:
     bool usesCrop(QString name);
 
     void addMeasure(QSharedPointer<CMeasure>);
-    void removeMeasure(int);
+    void removeMeasure(QString);
 
     //----- Getter -----
     CCrop* getLastCrop(int at);
@@ -44,8 +44,9 @@ public:
     QString getRegNumber();
     std::vector<QString> getAllEssentialAttributes();
     QMap<QString, QString> getFieldData(int);
+    QSharedPointer<CMeasure> getMeasure(QString key);
     std::vector<QSharedPointer<CMeasure>> getMeasuresInRange(QDate from, QDate to, bool allFuture = false);
-    std::vector<QSharedPointer<CMeasure>> checkMeasureFilters(int state, int type, QDate date, bool before);
+    std::vector<QSharedPointer<CMeasure>> checkMeasureFilters(int state, int type, QDate date, bool before, bool onlyDay);
 
     //----- Setter -----
     void setLastCrop(CCrop*);

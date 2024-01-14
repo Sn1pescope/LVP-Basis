@@ -5,6 +5,10 @@ const QMap<int, QString> CMeasure::STATES{{0, tr("Planned")},
 const QMap<int, QString> CMeasure::TYPES{{0, tr("Cultivating")}, {1, tr("Seeding")},
                                          {2, tr("Fertilizing")}, {3, tr("Spraying")},
                                          {4, tr("Harvesting")}};
+std::vector<QString> CMeasure::keys = {};
+bool CMeasure::shut = false;
+
+CMeasure::CMeasure(){}
 
 CMeasure::CMeasure(QString field_par, QString savingString)
 {
@@ -13,6 +17,7 @@ CMeasure::CMeasure(QString field_par, QString savingString)
     state = l.at(1).toInt();
     date = QDate::fromString(l.at(2), "dd.MM.yyyy");
     field = field_par;
+    generateKey();
 }
 
 CMeasure::CMeasure(QString field_par, int state_par, QDate date_par, int type_par){
@@ -20,10 +25,38 @@ CMeasure::CMeasure(QString field_par, int state_par, QDate date_par, int type_pa
     date = date_par;
     type = type_par;
     field = field_par;
+    generateKey();
+}
+
+void CMeasure::generateKey(){
+    QString k = QString::number(state) + "," + date.toString("dd-MM-yyyy") + "," + field + "," + QString::number(type);
+    QString newK = k;
+    int i = 1;
+    while(true){
+        auto it = std::find(keys.begin(), keys.end(), newK);
+        if(it != keys.end()){
+            newK = k + "-" + QString::number(i);
+        }else{
+            this->key = newK;
+            keys.push_back(newK);
+            break;
+        }
+        i++;
+    }
 }
 
 CMeasure::~CMeasure(){
     //Do cleanup
+    if(!shut){
+        auto it = std::find(keys.begin(), keys.end(), key);
+        if(it != keys.end()){
+            keys.erase(it);
+        }
+    }
+}
+
+void CMeasure::shutdown(){
+    shut = true;
 }
 
 //-------- Getter -----------
@@ -48,6 +81,10 @@ QString CMeasure::getField(){
     return field;
 }
 
+QString CMeasure::getKey(){
+    return key;
+}
+
 //--------- Setter ------------
 
 void CMeasure::setDate(QDate to){
@@ -62,6 +99,18 @@ void CMeasure::setType(int to){
     type = to;
 }
 
+void CMeasure::setField(QString to){
+    field = to;
+}
+
 bool CMeasure::operator<(CMeasure &rhs){
     return this->date < rhs.date;
+}
+
+bool CMeasure::greater(QSharedPointer<CMeasure> th, QSharedPointer<CMeasure> rhs){
+    return th->getDate() < rhs->getDate();
+}
+
+bool CMeasure::operator==(CMeasure &rhs){
+    return this->key == rhs.key;
 }

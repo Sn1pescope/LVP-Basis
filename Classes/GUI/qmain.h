@@ -15,6 +15,7 @@
 #include <Classes/GUI/Dialogs/qsettingsdialog.h>
 #include <Classes/GUI/Dialogs/qcreatefield.h>
 #include <Classes/GUI/Dialogs/qsplitmergefield.h>
+#include <Classes/GUI/Overwritten/qmeasurescalendarview.h>
 
 namespace Ui {
 class QMain;
@@ -38,6 +39,7 @@ public:
 private:
     Ui::QMain *ui;
     QLabel* lbls[18];
+    std::vector<QSharedPointer<CMeasure>> calMeasures;
 
     //---------------------------------- Methods -----------------------------------------------
 private:
@@ -81,8 +83,14 @@ private slots:
     void createMeasureList();
     void updateTasksCbEntrys();
     void updateCalendar(int);
+    void updateCalendarList();
     void sortMeasureList();
     void sortMeasureList(int);
+
+    //------------------------------------------------ Signals -------------------------------------------
+signals:
+    void shutdown();
+
 };
 
 #endif // QMAIN_H

@@ -42,7 +42,7 @@ public:
     static void setHarvestYearEnd(int);
     static void setLoadYearsBefore(int);
     //Measures
-    static std::vector<QSharedPointer<CMeasure>> getMeasures(QString field = "", int state = -1, int type = -1, QDate date = QDate(), bool before = false);
+    static std::vector<QSharedPointer<CMeasure>> getMeasures(QString field = "", int state = -1, int type = -1, QDate date = QDate(), bool before = false, bool onlyDay = false);
 
     static QDate getCurrentHarvestYearBegin();
 

@@ -8,6 +8,7 @@ class CMeasureCultivating : public CMeasure
 {
 public:
     CMeasureCultivating(QString, QString);
+    CMeasureCultivating(QString, int, QDate, int);
 };
 
 #endif // CMEASURECULTIVATING_H

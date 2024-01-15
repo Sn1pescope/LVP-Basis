@@ -30,10 +30,10 @@ int main(int argc, char *argv[])
     //      state of field,
     //      -> need function to show data out of range too -> In Reports later
 
-    //TODO: Calendar tool to plan measures -> Let user edit data on double click in list; Create on double click on calendar
-    //      -> Update list view too; -> Draw symbols in calendar cell for type of work
+    //TODO: Calendar tool to plan measures
+    //      Function to finish measures in program
 
-
+    //TODO: Make icons for whole program -> mark today in calendarWidget
     //TODO: Check if saving works everywhere in right directory (use beta for this)
 
 

@@ -10,6 +10,7 @@ QMAKE_LFLAGS += -static-libgcc
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+        Classes/GUI/Dialogs/qcompletemeasures.cpp \
         Classes/GUI/Dialogs/qcreateeditmeasure.cpp \
         Classes/GUI/Dialogs/qcreatefarm.cpp \
         Classes/GUI/Dialogs/qcreatefield.cpp \
@@ -47,6 +48,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
+    Classes/GUI/Dialogs/qcompletemeasures.h \
     Classes/GUI/Dialogs/qcreateeditmeasure.h \
     Classes/GUI/Dialogs/qcreatefarm.h \
     Classes/GUI/Dialogs/qcreatefield.h \
@@ -78,6 +80,7 @@ HEADERS += \
     Classes/cworkunit.h
 
 FORMS += \
+    Classes/GUI/Dialogs/qcompletemeasures.ui \
     Classes/GUI/Dialogs/qcreateeditmeasure.ui \
     Classes/GUI/Dialogs/qcreatefarm.ui \
     Classes/GUI/Dialogs/qcreatefield.ui \

@@ -1113,6 +1113,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>listCalendar</sender>
+   <signal>itemDoubleClicked(QTableWidgetItem*)</signal>
+   <receiver>QMain</receiver>
+   <slot>editMeasure()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>427</x>
+     <y>483</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>427</x>
+     <y>316</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openSettings()</slot>

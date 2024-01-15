@@ -3,6 +3,7 @@
 #include "ui_qmain.h"
 #include <Classes/GUI/Tools/qcropplantingplanningtool.h>
 #include <Classes/GUI/Dialogs/qcreateeditmeasure.h>
+#include <Classes/GUI/Dialogs/qcompletemeasures.h>
 
 QMain::QMain(QWidget *parent) : QMainWindow(parent), ui(new Ui::QMain)
 {
@@ -41,6 +42,15 @@ void QMain::eventLoopStarted(){
     this->show();
     QWarningDialog(this, tr("Information"), tr("Current activated farm: %1\n"
                                                "You can change the current farm with 'Settings' -> 'Farm'.").arg(CDataManager::getCurrentFarmName()), true, false).exec();
+
+    //Ask for completition of tasks
+    if(CDataManager::getCurrentFarmName() != ""){
+        //Get tasks in past with state planned or in progress
+        std::vector<QSharedPointer<CMeasure>> meas = CCommunicator::getMeasures("", CMeasure::STATE_PLANNED, -1, QDate::currentDate(), true);
+        std::vector<QSharedPointer<CMeasure>> meastwo = CCommunicator::getMeasures("", CMeasure::STATE_IN_PROGRESS, -1, QDate::currentDate(), true);
+        meas.insert(meas.end(), meastwo.begin(), meastwo.end());
+        QCompleteMeasures(this, meas).exec();
+    }
 }
 
 //------------------------------------ Tools -------------------------------------------------
@@ -237,42 +247,60 @@ void QMain::tasksTab(){
 void QMain::newMeasure(){
     //Create new measure
     QCreateEditMeasure(this, true).exec();
-    updateTasksCbEntrys();
+    updateCalendar(ui->tabWidgetTasks->currentIndex());
 }
 
 void QMain::editMeasure(){
     //Edit selected measure
-    if(!ui->listMeasures->selectedItems().empty()){
-        int row = ui->listMeasures->selectedItems().at(0)->row();
+    int row;
+    QString f;
+    QString key;
+    QSharedPointer<CMeasure> meas;
+    if(ui->tabWidgetTasks->currentIndex() == 0 && !ui->listMeasures->selectedItems().empty()){
+        row = ui->listMeasures->selectedItems().at(0)->row();
 
-        QString f = ui->listMeasures->item(row, 2)->text();
-        QString key = ui->listMeasures->item(row, 4)->text();
+        f = ui->listMeasures->item(row, 2)->text();
+        key = ui->listMeasures->item(row, 4)->text();
 
-        QSharedPointer<CMeasure> meas = CDataManager::getCurrentFarm()->getField(f)->getMeasure(key);
+        meas = CDataManager::getCurrentFarm()->getField(f)->getMeasure(key);
         QCreateEditMeasure(this, meas).exec();
         ui->listMeasures->item(row, 0)->setText(CMeasure::STATES.value(meas->getState()));
         ui->listMeasures->item(row, 1)->setText(meas->getDate().toString("dd.MM.yyyy"));
         ui->listMeasures->item(row, 2)->setText(meas->getField());
         ui->listMeasures->item(row, 3)->setText(CMeasure::TYPES.value(meas->getType()));
         ui->listMeasures->item(row, 4)->setText(meas->getKey());
+    }else if(ui->tabWidgetTasks->currentIndex() == 1 && !ui->listCalendar->selectedItems().empty()){
+        row = ui->listCalendar->selectedItems().at(0)->row();
+
+        f = ui->listCalendar->item(row, 2)->text();
+        key = ui->listCalendar->item(row, 4)->text();
+
+        meas = CDataManager::getCurrentFarm()->getField(f)->getMeasure(key);
+        QCreateEditMeasure(this, meas).exec();
+        ui->listCalendar->item(row, 0)->setText(CMeasure::STATES.value(meas->getState()));
+        ui->listCalendar->item(row, 1)->setText(meas->getDate().toString("dd.MM.yyyy"));
+        ui->listCalendar->item(row, 2)->setText(meas->getField());
+        ui->listCalendar->item(row, 3)->setText(CMeasure::TYPES.value(meas->getType()));
+        ui->listCalendar->item(row, 4)->setText(meas->getKey());
+    }else{
+        return;
     }
+
 }
 
 void QMain::deleteMeasure(){
-    //TODO: Delete selected measure
+    //Delete selected measure
     if(!ui->listMeasures->selectedItems().empty()){
         int row = ui->listMeasures->selectedItems().at(0)->row();
 
         CField* field = CDataManager::getCurrentFarm()->getField(ui->listMeasures->item(row, 2)->text());
         QString key = ui->listMeasures->item(row, 4)->text();
         field->removeMeasure(key);
-        updateTasksCbEntrys();
+        updateCalendar(ui->tabWidgetTasks->currentIndex());
     }
 }
 
 void QMain::createMeasureList(){
-    ui->listMeasures->hideColumn(4);
-    ui->listCalendar->hideColumn(4);
     //Create measure list
     QString field = ui->cbFilterField->currentText();
     int state = ui->cbFilterStates->currentIndex() - 1;
@@ -310,6 +338,8 @@ void QMain::sortMeasureList(int index){
 
 void QMain::updateTasksCbEntrys(){
     //Tab is called -> Update cb entrys, set standard filters, createList
+    ui->listMeasures->hideColumn(4);
+    ui->listCalendar->hideColumn(4);
     //Sort cb
     ui->cbSortMeasureList->clear();
     for(int i = 0; i < ui->listMeasures->columnCount(); i++){
@@ -352,7 +382,7 @@ void QMain::updateTasksCbEntrys(){
         ui->cbFilterType->insertItem(key+1, types.value(key));
     }
     ui->cbFilterType->setCurrentIndex(0);
-    createMeasureList();
+    updateCalendar(ui->tabWidgetTasks->currentIndex());
 }
 
 void QMain::updateCalendar(int currentIndex){
@@ -360,6 +390,9 @@ void QMain::updateCalendar(int currentIndex){
         //Update calendar
         ui->calendarWidget->updateMeasures(CCommunicator::getMeasures());
         updateCalendarList();
+    }else{
+        //Update list
+        createMeasureList();
     }
 }
 

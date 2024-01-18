@@ -86,6 +86,7 @@ private slots:
     void updateCalendarList();
     void sortMeasureList();
     void sortMeasureList(int);
+    void setDone();
 
     //------------------------------------------------ Signals -------------------------------------------
 signals:

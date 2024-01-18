@@ -411,6 +411,21 @@ void QMain::updateCalendarList(){
     }
 }
 
+void QMain::setDone(){
+    if(!ui->listMeasures->selectedItems().empty()){
+        int row = ui->listMeasures->selectedItems().at(0)->row();
+
+        QString f = ui->listMeasures->item(row, 2)->text();
+        QString key = ui->listMeasures->item(row, 4)->text();
+
+        QSharedPointer<CMeasure> meas = CDataManager::getCurrentFarm()->getField(f)->getMeasure(key);
+
+        meas->setState(CMeasure::STATE_DONE);
+
+        ui->listMeasures->item(row, 0)->setText(CMeasure::STATES.value(meas->getState()));
+    }
+}
+
 //--------------------------------- Events ---------------------------------------------------
 
 void QMain::closeEvent(QCloseEvent* ev){

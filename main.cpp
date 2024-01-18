@@ -11,6 +11,7 @@
  *                              - Let user load farm at begin
  *                              - Added calendar planning tool and measures system
  *                              - reworked field data saving
+ *                              - Added Icons
 */
 
 #include <QApplication>
@@ -31,9 +32,8 @@ int main(int argc, char *argv[])
     //      -> need function to show data out of range too -> In Reports later
 
     //TODO: Calendar tool to plan measures
-    //      Function to finish measures in program
 
-    //TODO: Make icons for whole program -> mark today in calendarWidget
+    //TODO: Make icons for whole program (Measure types still needed) -> mark today in calendarWidget
     //TODO: Check if saving works everywhere in right directory (use beta for this)
 
 

@@ -4,5 +4,7 @@
         <file>languages/LVP-Basis_en.qm</file>
         <file>icons/arrow-left-solid.png</file>
         <file>icons/arrow-right-solid.png</file>
+        <file>icons/attention.png</file>
+        <file>icons/tractor-solid.png</file>
     </qresource>
 </RCC>

@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Error!</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../../../ressources.qrc">
+    <normaloff>:/icons/attention.png</normaloff>:/icons/attention.png</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <spacer name="verticalSpacer_2">
@@ -59,7 +63,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../ressources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

@@ -22,6 +22,10 @@
   <property name="windowTitle">
    <string>Agricultural Management Software --- LVP</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../../ressources.qrc">
+    <normaloff>:/icons/tractor-solid.png</normaloff>:/icons/tractor-solid.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>
@@ -709,6 +713,13 @@
               </column>
              </widget>
             </item>
+            <item>
+             <widget class="QPushButton" name="btnFinishMeasure">
+              <property name="text">
+               <string>Finish Measure</string>
+              </property>
+             </widget>
+            </item>
            </layout>
           </widget>
           <widget class="QWidget" name="tabCalendar">
@@ -775,7 +786,9 @@
    <header>Classes/GUI/Overwritten/qmeasurescalendarview.h</header>
   </customwidget>
  </customwidgets>
- <resources/>
+ <resources>
+  <include location="../../ressources.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonSettings</sender>
@@ -1129,6 +1142,22 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>btnFinishMeasure</sender>
+   <signal>clicked()</signal>
+   <receiver>QMain</receiver>
+   <slot>setDone()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>427</x>
+     <y>589</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>427</x>
+     <y>316</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>openSettings()</slot>
@@ -1152,6 +1181,7 @@
   <slot>sortMeasureList(int)</slot>
   <slot>sortMeasureList()</slot>
   <slot>updateCalendarList()</slot>
+  <slot>setDone()</slot>
  </slots>
  <buttongroups>
   <buttongroup name="buttonGroup"/>

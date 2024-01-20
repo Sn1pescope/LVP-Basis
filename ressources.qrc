@@ -6,5 +6,11 @@
         <file>icons/arrow-right-solid.png</file>
         <file>icons/attention.png</file>
         <file>icons/tractor-solid.png</file>
+        <file>icons/cultivator.png</file>
+        <file>icons/fertilizer.png</file>
+        <file>icons/harvester.png</file>
+        <file>icons/seeder.png</file>
+        <file>icons/sprayer.png</file>
+        <file>icons/check.png</file>
     </qresource>
 </RCC>

@@ -5,6 +5,9 @@ const QMap<int, QString> CMeasure::STATES{{0, tr("Planned")},
 const QMap<int, QString> CMeasure::TYPES{{0, tr("Cultivating")}, {1, tr("Seeding")},
                                          {2, tr("Fertilizing")}, {3, tr("Spraying")},
                                          {4, tr("Harvesting")}};
+const QMap<int, QString> CMeasure::ICONS_TYPES{{0, ":/icons/cultivator.png"}, {1, ":/icons/seeder.png"},
+                                               {2, ":/icons/fertilizer.png"}, {3, ":/icons/sprayer.png"},
+                                               {4, ":/icons/harvester.png"}};
 std::vector<QString> CMeasure::keys = {};
 bool CMeasure::shut = false;
 

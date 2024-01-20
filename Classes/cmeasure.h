@@ -35,6 +35,7 @@ public:
     static const int TYPE_SPRAYING = 3;
     static const int TYPE_HARVESTING = 4;
     static const QMap<int, QString> TYPES;
+    static const QMap<int, QString> ICONS_TYPES;
 
     void setState(int);
     void setDate(QDate);

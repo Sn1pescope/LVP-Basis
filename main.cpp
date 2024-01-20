@@ -33,7 +33,7 @@ int main(int argc, char *argv[])
 
     //TODO: Calendar tool to plan measures
 
-    //TODO: Make icons for whole program (Measure types still needed) -> mark today in calendarWidget
+    //TODO: Detail view for field data
     //TODO: Check if saving works everywhere in right directory (use beta for this)
 
 
